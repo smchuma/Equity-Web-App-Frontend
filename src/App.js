@@ -11,7 +11,7 @@ const App = () => {
       <Navbar />
       <Flex>
         <Sidebar id="123" />
-        <Box flex="1" ml="200px">
+        <Box flex="1" ml="250px">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/profile" element={<Profile />} />

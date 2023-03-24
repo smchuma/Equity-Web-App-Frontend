@@ -4,13 +4,33 @@ import { Posts } from "../../dummyData";
 
 const Home = () => {
   return (
-    <Flex>
-      <Box flex="1" px={12} py={10}>
+    <Flex
+      style={{
+        marginRight: "350px",
+      }}
+    >
+      <Box
+        flex="1"
+        style={{
+          marginLeft: "200px",
+          marginRight: "250px",
+          marginTop: "40px",
+        }}
+      >
         {Posts.map((post) => (
           <Post key={post.id} post={post} />
         ))}
       </Box>
-      <Box flex="0.5" py={10} pos="sticky">
+      <Box
+        flex="0.5"
+        pos="fixed"
+        right="0"
+        w="350px"
+        style={{
+          marginTop: "40px",
+          marginRight: "120px",
+        }}
+      >
         <RightBar />
       </Box>
     </Flex>

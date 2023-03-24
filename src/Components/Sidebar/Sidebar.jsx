@@ -41,10 +41,10 @@ const Sidebar = ({ id }) => {
     },
   ];
   return (
-    <Box as="nav" bg="brand.primary" w="200px" h="100vh" pos="fixed">
+    <Box as="nav" bg="brand.primary" w="250px" h="100vh" pos="fixed">
       {menuItem.map((menu) => (
         <Link to={menu.link} key={menu.id}>
-          <VStack spacing="5" w="100%" px={2} py={5}>
+          <VStack spacing="5" w="100%" px={5} py={5}>
             <HStack
               spacing="2"
               w="100%"
