@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter as Router } from "react-router-dom";
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import { colors } from "./config/theme";
+
 import App from "./App";
 
 const theme = extendTheme({ colors });

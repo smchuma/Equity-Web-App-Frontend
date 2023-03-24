@@ -13,7 +13,6 @@ import {
   useColorMode,
   Center,
   Image,
-  IconButton,
 } from "@chakra-ui/react";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import WbSunnyIcon from "@mui/icons-material/WbSunny";
@@ -25,6 +24,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 
 import ChatIcon from "@mui/icons-material/Chat";
 import "./Navbar.scss";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -33,17 +33,22 @@ const Navbar = () => {
     <>
       <Box
         bg={useColorModeValue("gray.100", "gray.900")}
-        px={15}
+        style={{
+          paddingLeft: "25px",
+          paddingRight: "120px",
+        }}
         pos="sticky"
         top="0"
         zIndex="sticky"
         boxShadow="md"
       >
-        <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
+        <Flex h="65px" alignItems={"center"} justifyContent={"space-between"}>
           <Box>
             {colorMode === "light" ? (
               <Image
-                src="./assets/logo.png"
+                src={
+                  "https://res.cloudinary.com/smchuma/image/upload/v1679673932/logo_awmyvm.png"
+                }
                 alt="logo"
                 boxSize="80px"
                 objectFit="contain"
@@ -51,7 +56,9 @@ const Navbar = () => {
               />
             ) : (
               <Image
-                src="./assets/logoWhite.png"
+                src={
+                  "https://res.cloudinary.com/smchuma/image/upload/v1679674079/logoWhite_xjpk3i.png"
+                }
                 alt="logo"
                 boxSize="80px"
                 objectFit="contain"
@@ -86,12 +93,22 @@ const Navbar = () => {
                   cursor={"pointer"}
                   minW={0}
                 >
-                  <Avatar size={"md"} src="./assets/brendan.jpg" />
+                  <Avatar
+                    size={"md"}
+                    src={
+                      "https://www.nndb.com/people/095/000031002/brendan-eich-2-sized.jpg"
+                    }
+                  />
                 </MenuButton>
                 <MenuList alignItems={"center"}>
                   <br />
                   <Center>
-                    <Avatar size={"2xl"} src="./assets/brendan.jpg" />
+                    <Avatar
+                      size={"2xl"}
+                      src={
+                        "https://www.nndb.com/people/095/000031002/brendan-eich-2-sized.jpg"
+                      }
+                    />
                   </Center>
                   <br />
                   <Center>
@@ -99,43 +116,41 @@ const Navbar = () => {
                   </Center>
                   <br />
                   <MenuDivider />
+                  <Link to="/profile">
+                    <MenuItem>
+                      <PersonIcon
+                        style={{
+                          color: "#d97d48",
+                          marginRight: "10px",
+                        }}
+                      />
+                      My Profile
+                    </MenuItem>
+                  </Link>
                   <MenuItem>
-                    <IconButton
-                      aria-label="profile"
-                      icon={<PersonIcon />}
-                      color="brand.secondary"
-                      size="md"
-                      mr="2"
-                    />
-                    My Profile
-                  </MenuItem>
-                  <MenuItem>
-                    <IconButton
-                      aria-label="settings"
-                      icon={<SettingsIcon />}
-                      color="brand.secondary"
-                      size="md"
-                      mr="2"
+                    <SettingsIcon
+                      style={{
+                        color: "#d97d48",
+                        marginRight: "10px",
+                      }}
                     />
                     Account Settings
                   </MenuItem>
                   <MenuItem>
-                    <IconButton
-                      aria-label="help"
-                      icon={<HelpIcon />}
-                      color="brand.secondary"
-                      size="md"
-                      mr="2"
+                    <HelpIcon
+                      style={{
+                        color: "#d97d48",
+                        marginRight: "10px",
+                      }}
                     />
                     Get help
                   </MenuItem>
                   <MenuItem>
-                    <IconButton
-                      aria-label="logout"
-                      icon={<LogoutIcon />}
-                      color="brand.secondary"
-                      size="md"
-                      mr="2"
+                    <LogoutIcon
+                      style={{
+                        color: "#d97d48",
+                        marginRight: "10px",
+                      }}
                     />
                     Logout
                   </MenuItem>

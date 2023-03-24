@@ -26,7 +26,7 @@ const SuggestedUser = ({ isOnline }) => {
   ];
   return (
     <>
-      <Box overflowY="scroll" maxHeight="300px">
+      <Box overflowY="scroll" maxHeight="300px" overflow="hidden">
         {users.map((user) => (
           <Stack
             key={user.name}

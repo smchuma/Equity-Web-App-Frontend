@@ -25,7 +25,7 @@ const SuggestedGroup = ({ isOnline }) => {
     },
   ];
   return (
-    <Box overflowY="scroll" maxHeight="300px">
+    <Box overflowY="scroll" maxHeight="300px" overflow="hidden">
       {groups.map((group) => (
         <Stack
           key={group.name}

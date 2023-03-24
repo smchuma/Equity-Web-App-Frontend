@@ -5,7 +5,8 @@ import ForumIcon from "@mui/icons-material/Forum";
 import EventIcon from "@mui/icons-material/Event";
 import GroupsIcon from "@mui/icons-material/Groups";
 import "./Sidebar.scss";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import SearchModal from "../SearchModal/SearchModal";
 
 const Sidebar = ({ id }) => {
   const menuItem = [
@@ -17,9 +18,12 @@ const Sidebar = ({ id }) => {
     },
     {
       id: 2,
-      icon: <SearchIcon className="icon" />,
-      text: "Search",
-      link: "/search",
+      icon: (
+        <SearchModal>
+          <SearchIcon className="icon" />
+        </SearchModal>
+      ),
+      text: <SearchModal>Search</SearchModal>,
     },
     {
       id: 3,
@@ -41,9 +45,21 @@ const Sidebar = ({ id }) => {
     },
   ];
   return (
-    <Box as="nav" bg="brand.primary" w="250px" h="100vh" pos="fixed">
+    <Box
+      as="nav"
+      bg="brand.primary"
+      w="250px"
+      h="calc(100vh - 65px)"
+      pos="fixed"
+    >
       {menuItem.map((menu) => (
-        <Link to={menu.link} key={menu.id}>
+        <NavLink
+          to={menu.link}
+          key={menu.id}
+          style={(isActive) => ({
+            color: isActive ? "green" : "blue",
+          })}
+        >
           <VStack spacing="5" w="100%" px={5} py={5}>
             <HStack
               spacing="2"
@@ -61,7 +77,7 @@ const Sidebar = ({ id }) => {
               </Text>
             </HStack>
           </VStack>
-        </Link>
+        </NavLink>
       ))}
     </Box>
   );

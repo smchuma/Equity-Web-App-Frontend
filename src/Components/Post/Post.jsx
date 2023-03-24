@@ -11,24 +11,24 @@ import BookmarkIcon from "@mui/icons-material/Bookmark";
 import CommentIcon from "@mui/icons-material/Comment";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
+
 import { Users } from "../../dummyData";
 
 const Post = ({ post }) => {
   const { photo, date, desc, comment, like } = post;
+
   return (
     <div className="post">
       <Stack
-        bg="white"
         boxShadow="md"
         borderRadius="md"
         borderWidth="1px"
-        borderColor="gray.200"
+        borderColor="subtleBorderColor"
         cursor="pointer"
         marginLeft={4}
         marginRight={4}
         mb={14}
-        backgroundColor="#F5F5F5
-        "
+        backgroundColor="transparent"
       >
         <Flex
           borderBottomWidth="2px"
