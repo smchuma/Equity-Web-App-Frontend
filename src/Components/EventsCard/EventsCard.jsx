@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   Card,
   CardBody,
@@ -14,31 +15,44 @@ const EventsCard = ({ event }) => {
 
   return (
     <>
-      <Card
-        direction={{ base: "column", sm: "row" }}
-        overflow="hidden"
-        variant="outline"
-      >
+      <Card maxW="sm" maxH="500px" overflow="hidden">
         <Image
-          objectFit="cover"
-          maxW={{ base: "100%", sm: "200px" }}
           src={photo}
-          alt="Caffe Latte"
+          alt="Event image"
+          sx={{
+            height: "200px",
+            width: "100%",
+          }}
         />
-
-        <Stack>
-          <CardBody>
-            <Heading size="md">The perfect latte</Heading>
-
-            <Text py="2">{desc}</Text>
+        <Box
+          overflowY="scroll"
+          sx={{
+            "&::-webkit-scrollbar": {
+              width: "0.1em",
+              height: "0.1em",
+            },
+            "&::-webkit-scrollbar-thumb": {
+              backgroundColor: "gray.200",
+            },
+          }}
+        >
+          <CardBody textAlign="justify">
+            <Stack>
+              <Text fontSize="sm">{date}</Text>
+              <Heading fontSize="md" mb="2">
+                Event Name
+              </Heading>
+              <Text fontSize="sm" mb="2">
+                {desc}
+              </Text>
+            </Stack>
           </CardBody>
-
           <CardFooter>
-            <Button variant="solid" colorScheme="blue">
-              Buy Latte
+            <Button w="100%" colorScheme="blue">
+              Join
             </Button>
           </CardFooter>
-        </Stack>
+        </Box>
       </Card>
     </>
   );

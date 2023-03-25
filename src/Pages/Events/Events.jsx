@@ -1,4 +1,4 @@
-import { Box, Stack, Text } from "@chakra-ui/react";
+import { Box, SimpleGrid, Stack, Text } from "@chakra-ui/react";
 import React from "react";
 import { EventsCard } from "../../Components";
 import { Posts } from "../../dummyData";
@@ -13,8 +13,8 @@ const Events = () => {
         paddingTop: "65px",
       }}
     >
-      <Box w="calc(100% - 30%)" align="center">
-        <Box m={2}>
+      <Box w="100%">
+        <Box m={5}>
           <Text
             fontSize="3xl"
             fontWeight="bold"
@@ -24,18 +24,11 @@ const Events = () => {
             Events
           </Text>
         </Box>
-        <Stack
-          direction={{ base: "column" }}
-          spacing={{ base: 2, sm: 4 }}
-          px={8}
-        >
+        <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} spacing={10} px={12}>
           {Posts.map((post) => (
             <EventsCard key={post.id} event={post} />
           ))}
-        </Stack>
-      </Box>
-      <Box w="25%" bg="blue" pos="sticky" right={0}>
-        sss
+        </SimpleGrid>
       </Box>
     </Stack>
   );

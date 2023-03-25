@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import { Events, Groups, Home, Forum, ProfilePage } from "./Pages";
 import { UserEvents, About, Badges, Chapters, Inquiries } from "./Sections";
 import "./App.scss";
-import { Navbar, Sidebar } from "./Components";
+import { Login, Navbar, Sidebar, SignUp } from "./Components";
 import { Box, Flex } from "@chakra-ui/react";
 
 const App = () => {
@@ -14,6 +14,9 @@ const App = () => {
         <Sidebar id="123" />
         <Box flex="1" ml="250px">
           <Routes>
+            <Route path="login" element={<Login />} />
+            <Route path="signup" element={<SignUp />} />
+
             <Route path="/" element={<Home />} />
             <Route path="/profile" element={<ProfilePage />}>
               <Route path="about" element={<About />} />

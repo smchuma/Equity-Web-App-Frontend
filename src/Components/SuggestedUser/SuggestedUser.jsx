@@ -33,7 +33,7 @@ const SuggestedUser = ({ isOnline }) => {
             direction="row"
             spacing={4}
             align="center"
-            mb={2}
+            mb={10}
           >
             <Avatar size="md" name={user.name} src={user.image}>
               {isOnline && <AvatarBadge boxSize="1em" bg="green.500" />}

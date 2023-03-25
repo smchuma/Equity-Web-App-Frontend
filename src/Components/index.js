@@ -6,3 +6,6 @@ export { default as Profile } from "./Profile/Profile";
 export { default as Chats } from "./Chats/Chats";
 export { default as Conversations } from "./Conversations/Conversations";
 export { default as EventsCard } from "./EventsCard/EventsCard";
+export { default as SuggestedEvents } from "./SuggestedEvents/SuggestedEvents";
+export { default as Login } from "./Login/Login";
+export { default as SignUp } from "./SignUp/SignUp";

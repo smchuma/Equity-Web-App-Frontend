@@ -16,26 +16,38 @@ import {
 } from "@chakra-ui/react";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import WbSunnyIcon from "@mui/icons-material/WbSunny";
-import NotificationsIcon from "@mui/icons-material/Notifications";
 import LogoutIcon from "@mui/icons-material/Logout";
 import PersonIcon from "@mui/icons-material/Person";
 import HelpIcon from "@mui/icons-material/Help";
 import SettingsIcon from "@mui/icons-material/Settings";
+import { MessageModal, NotificationModal } from "../../Modals";
 
-import ChatIcon from "@mui/icons-material/Chat";
 import "./Navbar.scss";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 const Navbar = () => {
   const { colorMode, toggleColorMode } = useColorMode();
+  const [showNotification, setShowNotification] = useState(false);
+
+  const handleNotificationClick = () => {
+    setShowNotification(!showNotification);
+  };
+
+  const notifications = [
+    { id: 1, text: "New message from John" },
+    { id: 2, text: "You have a meeting at 2pm" },
+    { id: 3, text: "Your order has been shipped" },
+  ];
 
   return (
     <>
       <Box
         bg={useColorModeValue("gray.100", "gray.900")}
-        style={{
+        sx={{
           paddingLeft: "25px",
           paddingRight: "120px",
+          cursor: "pointer",
         }}
         pos="fixed"
         top="0"
@@ -71,12 +83,16 @@ const Navbar = () => {
           <Flex>
             <Stack direction={"row"} spacing={7} align="center">
               <Box className="icons">
-                <NotificationsIcon style={{ color: "#d97d48" }} />
-                <span className="iconBadge">1</span>
+                <NotificationModal
+                  notifications={notifications}
+                  onNotificationClick={handleNotificationClick}
+                />
               </Box>
               <Box className="icons">
-                <ChatIcon style={{ color: "#d97d48" }} />
-                <span className="iconBadge">5</span>
+                <MessageModal
+                  notifications={notifications}
+                  onNotificationClick={handleNotificationClick}
+                />
               </Box>
               <Button onClick={toggleColorMode}>
                 {colorMode === "light" ? (
