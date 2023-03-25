@@ -37,10 +37,11 @@ const Navbar = () => {
           paddingLeft: "25px",
           paddingRight: "120px",
         }}
-        pos="sticky"
+        pos="fixed"
         top="0"
         zIndex="sticky"
         boxShadow="md"
+        w="100%"
       >
         <Flex h="65px" alignItems={"center"} justifyContent={"space-between"}>
           <Box>

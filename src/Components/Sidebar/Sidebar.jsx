@@ -45,13 +45,7 @@ const Sidebar = ({ id }) => {
     },
   ];
   return (
-    <Box
-      as="nav"
-      bg="brand.primary"
-      w="250px"
-      h="calc(100vh - 65px)"
-      pos="fixed"
-    >
+    <Box as="nav" bg="brand.primary" w="250px" h="100vh" pos="fixed" top="65px">
       {menuItem.map((menu) => (
         <NavLink
           to={menu.link}

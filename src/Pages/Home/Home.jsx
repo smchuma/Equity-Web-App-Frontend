@@ -5,8 +5,9 @@ import { Posts } from "../../dummyData";
 const Home = () => {
   return (
     <Flex
-      style={{
+      sx={{
         marginRight: "350px",
+        paddingTop: "65px",
       }}
     >
       <Box

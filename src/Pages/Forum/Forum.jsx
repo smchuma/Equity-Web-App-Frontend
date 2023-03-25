@@ -4,7 +4,16 @@ import { Chats, Conversations } from "../../Components";
 
 const Forum = () => {
   return (
-    <Stack direction="row" h="calc(100vh - 65px)" w="100%" overflow="hidden">
+    <Stack
+      direction="row"
+      h="100vh"
+      w="100%"
+      sx={{
+        marginRight: "350px",
+        paddingTop: "65px",
+      }}
+      overflow="hidden"
+    >
       <Box w="calc(100% - 25%)">
         <Conversations />
       </Box>
