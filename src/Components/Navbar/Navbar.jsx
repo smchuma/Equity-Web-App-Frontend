@@ -44,16 +44,16 @@ const Navbar = () => {
     <>
       <Box
         bg={useColorModeValue("gray.100", "gray.900")}
-        sx={{
-          paddingLeft: "25px",
-          paddingRight: "120px",
-          cursor: "pointer",
-        }}
+        paddingLeft="25px"
+        paddingRight="120px"
+        cursor="pointer"
         pos="fixed"
         top="0"
+        left="0"
         zIndex="sticky"
         boxShadow="md"
         w="100%"
+        h="65px"
       >
         <Flex h="65px" alignItems={"center"} justifyContent={"space-between"}>
           <Box>

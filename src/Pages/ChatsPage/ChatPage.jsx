@@ -1,16 +1,15 @@
 import { Box, Stack } from "@chakra-ui/react";
 import React from "react";
 import { Chats, Conversations } from "../../Components";
-import "./Forum.scss";
 
-const Forum = () => {
+const ChatsPage = () => {
   return (
     <Stack
       direction="row"
       h="100vh"
       w="100%"
-      className="Forum"
       sx={{
+        marginRight: "350px",
         paddingTop: "65px",
       }}
       overflow="hidden"
@@ -18,11 +17,11 @@ const Forum = () => {
       <Box w="calc(100% - 25%)">
         <Conversations />
       </Box>
-      <Box width="25%" className="rightBar">
+      <Box width="25%">
         <Chats />
       </Box>
     </Stack>
   );
 };
 
-export default Forum;
+export default ChatsPage;

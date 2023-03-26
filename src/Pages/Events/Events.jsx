@@ -2,18 +2,17 @@ import { Box, SimpleGrid, Stack, Text } from "@chakra-ui/react";
 import React from "react";
 import { EventsCard } from "../../Components";
 import { Posts } from "../../dummyData";
+import "./Events.scss";
 
 const Events = () => {
   return (
     <Stack
       direction="row"
       h="calc(100vh-25%)"
-      w="100%"
-      sx={{
-        paddingTop: "65px",
-      }}
+      paddingTop="65px"
+      className="Events"
     >
-      <Box w="100%">
+      <Box>
         <Box m={5}>
           <Text
             fontSize="3xl"

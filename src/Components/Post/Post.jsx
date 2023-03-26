@@ -19,18 +19,12 @@ const Post = ({ post }) => {
 
   return (
     <div className="post">
-      <Stack
-        boxShadow="md"
-        borderRadius="md"
-        borderWidth="1px"
-        borderColor="subtleBorderColor"
-        cursor="pointer"
-        marginLeft={4}
-        marginRight={4}
-        mb={14}
-        backgroundColor="transparent"
-      >
+      <Stack cursor="pointer" mb={14} backgroundColor="transparent">
         <Flex
+          boxShadow="md"
+          borderRadius="md"
+          borderWidth="1px"
+          borderColor="subtleBorderColor"
           borderBottomWidth="2px"
           borderBottomColor="gray.200"
           paddingBottom={2}

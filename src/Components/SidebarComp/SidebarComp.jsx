@@ -1,4 +1,11 @@
-import { Box, HStack, IconButton, Text, VStack } from "@chakra-ui/react";
+import {
+  Box,
+  HStack,
+  IconButton,
+  Text,
+  useMediaQuery,
+  VStack,
+} from "@chakra-ui/react";
 import RssFeedIcon from "@mui/icons-material/RssFeed";
 import SearchIcon from "@mui/icons-material/Search";
 import ForumIcon from "@mui/icons-material/Forum";
@@ -7,8 +14,10 @@ import GroupsIcon from "@mui/icons-material/Groups";
 import "./Sidebar.scss";
 import { NavLink } from "react-router-dom";
 import SearchModal from "../SearchModal/SearchModal";
+import { Sidebar, Menu, MenuItem, useProSidebar } from "react-pro-sidebar";
+import { useEffect } from "react";
 
-const Sidebar = ({ id }) => {
+const SidebarComp = ({ id }) => {
   const menuItem = [
     {
       id: 1,
@@ -44,37 +53,35 @@ const Sidebar = ({ id }) => {
       link: "/groups",
     },
   ];
+
+  const { collapseSidebar } = useProSidebar();
+  const [isSmallerThanMd] = useMediaQuery("(max-width: 1000px)");
+
+  useEffect(() => {
+    collapseSidebar(isSmallerThanMd);
+  }, [isSmallerThanMd, collapseSidebar]);
   return (
-    <Box as="nav" bg="brand.primary" w="250px" h="100vh" pos="fixed" top="65px">
-      {menuItem.map((menu) => (
-        <NavLink
-          to={menu.link}
-          key={menu.id}
-          style={(isActive) => ({
-            color: isActive ? "green" : "blue",
-          })}
-        >
-          <VStack spacing="5" w="100%" px={5} py={5}>
-            <HStack
-              spacing="2"
-              w="100%"
-              _hover={{ bg: "brand.primaryDark", borderRadius: "10px" }}
-            >
-              <IconButton
-                aria-label="feed"
-                icon={menu.icon}
-                size="md"
-                bg="transparent"
-              />
-              <Text color="white" fontSize="md">
-                {menu.text}
-              </Text>
-            </HStack>
-          </VStack>
-        </NavLink>
-      ))}
+    <Box marginTop="65px" height="100vh" position="fixed">
+      <Sidebar
+        backgroundColor="#a32a29"
+        width="12em"
+        collapsed={isSmallerThanMd}
+        h="100vh"
+        style={{ height: "100vh", color: "white" }}
+      >
+        {menuItem.map((menu) => (
+          <Menu key={menu.id}>
+            <NavLink to={menu.link} className="link">
+              <MenuItem icon={menu.icon}>
+                <Text>{menu.text}</Text>
+              </MenuItem>
+            </NavLink>
+          </Menu>
+        ))}
+      </Sidebar>
+      ;
     </Box>
   );
 };
 
-export default Sidebar;
+export default SidebarComp;

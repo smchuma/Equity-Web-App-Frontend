@@ -1,5 +1,5 @@
 export { default as Navbar } from "./Navbar/Navbar";
-export { default as Sidebar } from "./Sidebar/Sidebar";
+export { default as SidebarComp } from "./SidebarComp/SidebarComp";
 export { default as Post } from "./Post/Post";
 export { default as RightBar } from "./RightBar/RightBar";
 export { default as Profile } from "./Profile/Profile";
@@ -9,3 +9,5 @@ export { default as EventsCard } from "./EventsCard/EventsCard";
 export { default as SuggestedEvents } from "./SuggestedEvents/SuggestedEvents";
 export { default as Login } from "./Login/Login";
 export { default as SignUp } from "./SignUp/SignUp";
+export { default as TextField } from "./Formik/TextField";
+export { default as RequireAuth } from "./RequireAuth/RequireAuth";

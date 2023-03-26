@@ -1,40 +1,23 @@
-import { Box, Flex } from "@chakra-ui/react";
+import { Box, Flex, Stack } from "@chakra-ui/react";
+import { useContext } from "react";
 import { Post, RightBar } from "../../Components";
 import { Posts } from "../../dummyData";
+import "./Home.scss";
 
 const Home = () => {
   return (
-    <Flex
-      sx={{
-        marginRight: "350px",
-        paddingTop: "65px",
-      }}
-    >
-      <Box
-        flex="1"
-        style={{
-          marginLeft: "200px",
-          marginRight: "250px",
-          marginTop: "40px",
-        }}
-      >
-        {Posts.map((post) => (
-          <Post key={post.id} post={post} />
-        ))}
-      </Box>
-      <Box
-        flex="0.5"
-        pos="fixed"
-        right="0"
-        w="350px"
-        style={{
-          marginTop: "40px",
-          marginRight: "120px",
-        }}
-      >
-        <RightBar />
-      </Box>
-    </Flex>
+    <Box mt="65px" w="100%" className="Home">
+      <Stack direction="row" w="100%">
+        <Box w="calc(100%-80%)" mt="40px">
+          {Posts.map((post) => (
+            <Post key={post.id} post={post} />
+          ))}
+        </Box>
+        <Box w="80%" className="rightBar">
+          <RightBar />
+        </Box>
+      </Stack>
+    </Box>
   );
 };
 
