@@ -12,7 +12,7 @@ import ForumIcon from "@mui/icons-material/Forum";
 import EventIcon from "@mui/icons-material/Event";
 import GroupsIcon from "@mui/icons-material/Groups";
 import "./Sidebar.scss";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import SearchModal from "../SearchModal/SearchModal";
 import { Sidebar, Menu, MenuItem, useProSidebar } from "react-pro-sidebar";
 import { useEffect } from "react";
@@ -71,11 +71,11 @@ const SidebarComp = ({ id }) => {
       >
         {menuItem.map((menu) => (
           <Menu key={menu.id}>
-            <NavLink to={menu.link} className="link">
+            <Link to={menu.link} className="link">
               <MenuItem icon={menu.icon}>
                 <Text>{menu.text}</Text>
               </MenuItem>
-            </NavLink>
+            </Link>
           </Menu>
         ))}
       </Sidebar>

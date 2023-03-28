@@ -104,11 +104,10 @@ const Navbar = () => {
 
               <Menu>
                 <MenuButton
-                  as={Button}
+                  as="div"
                   rounded={"full"}
                   variant={"link"}
                   cursor={"pointer"}
-                  minW={0}
                 >
                   <Avatar
                     size={"md"}

@@ -13,13 +13,12 @@ import {
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import GoogleIcon from "@mui/icons-material/Google";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import TextField from "../Formik/TextField";
 import "./SignUp.scss";
 import axios from "../../api/axios";
-import { useContext } from "react";
 import useAuth from "../../hooks/useAuth";
 
 const SignUp = () => {
@@ -27,11 +26,15 @@ const SignUp = () => {
   const REGISTER_URL = "/register";
 
   const [errMsg, setErrMsg] = useState("");
-  const [loading] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
   const { setAuth } = useAuth();
 
   const handleSubmit = async (values, actions) => {
+    setLoading(true);
     const { firstname, lastname, email, password } = values;
+    const { from } = location.state || { from: { pathname: "/" } };
 
     try {
       const response = await axios.post(
@@ -46,9 +49,13 @@ const SignUp = () => {
 
       //console.log(JSON.stringify(response))
       const accessToken = response?.data?.accessToken;
-      setAuth({ firstname, lastname, email, password, accessToken });
-      alert("Register Successful");
+      setAuth({
+        accessToken,
+        user: true,
+      });
+
       actions.resetForm();
+      navigate(from, { replace: true });
     } catch (err) {
       if (!err?.response) {
         setErrMsg("No Server Response");
@@ -58,6 +65,7 @@ const SignUp = () => {
         setErrMsg("Registration Failed");
       }
     }
+    setLoading(false);
   };
   return (
     <div className="container">

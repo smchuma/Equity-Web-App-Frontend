@@ -26,11 +26,12 @@ const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { from } = location.state || { from: { pathname: "/" } };
-  const [loading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const [errMsg, setErrMsg] = useState("");
 
   const handleSubmit = async (values, actions) => {
+    setLoading(true);
     const { email, password } = values;
 
     try {
@@ -44,9 +45,8 @@ const Login = () => {
       );
 
       const accessToken = response?.data?.accessToken;
-      setAuth({ email, password, accessToken });
+      setAuth({ accessToken, user: true });
       actions.resetForm();
-
       navigate(from, { replace: true });
     } catch (err) {
       if (!err?.response) {
@@ -64,6 +64,7 @@ const Login = () => {
       } else {
         setErrMsg("Login Failed. Please check your credentials and try again");
       }
+      setLoading(false);
     }
   };
   return (

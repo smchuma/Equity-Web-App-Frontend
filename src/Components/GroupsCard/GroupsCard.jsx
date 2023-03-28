@@ -29,9 +29,9 @@ const GroupsCard = () => {
           alt={`avatar`}
         />
         <Box p="6">
-          <Text fontWeight="bold" fontSize="lg" mb="2">
+          <Box fontWeight="bold" fontSize="lg" mb="2">
             <Text>Group 1</Text>
-          </Text>
+          </Box>
         </Box>
       </Stack>
     </>
