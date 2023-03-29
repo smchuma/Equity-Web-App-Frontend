@@ -21,6 +21,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import HelpIcon from "@mui/icons-material/Help";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { MessageModal, NotificationModal } from "../../Modals";
+import useUser from "../../hooks/useUser";
 
 import "./Navbar.scss";
 import { Link } from "react-router-dom";
@@ -29,6 +30,9 @@ import { useState } from "react";
 const Navbar = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   const [showNotification, setShowNotification] = useState(false);
+  const { user } = useUser();
+
+  console.log("rrrrr", user);
 
   const handleNotificationClick = () => {
     setShowNotification(!showNotification);

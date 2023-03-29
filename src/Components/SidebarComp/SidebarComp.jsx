@@ -71,11 +71,9 @@ const SidebarComp = ({ id }) => {
       >
         {menuItem.map((menu) => (
           <Menu key={menu.id}>
-            <Link to={menu.link} className="link">
-              <MenuItem icon={menu.icon}>
-                <Text>{menu.text}</Text>
-              </MenuItem>
-            </Link>
+            <MenuItem icon={menu.icon} component={<Link to={menu.link} />}>
+              <Text>{menu.text}</Text>
+            </MenuItem>
           </Menu>
         ))}
       </Sidebar>

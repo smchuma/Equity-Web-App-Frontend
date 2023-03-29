@@ -1,5 +1,4 @@
-import { Box, Flex, Stack } from "@chakra-ui/react";
-import { useContext } from "react";
+import { Box, Stack } from "@chakra-ui/react";
 import { Post, RightBar } from "../../Components";
 import { Posts } from "../../dummyData";
 import "./Home.scss";

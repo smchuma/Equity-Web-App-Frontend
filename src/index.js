@@ -6,6 +6,7 @@ import { ProSidebarProvider } from "react-pro-sidebar";
 import { AuthProvider } from "./Context/auth/AuthProvider";
 import { colors } from "./config/theme";
 import App from "./App";
+import { UserContextProvider } from "./Context/UserContext/UserContext";
 
 const activeLabelStyles = {
   transform: "scale(0.85) translateY(-24px)",
@@ -52,7 +53,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <ChakraProvider theme={theme}>
         <ProSidebarProvider>
           <AuthProvider>
-            <App />
+            <UserContextProvider>
+              <App />
+            </UserContextProvider>
           </AuthProvider>
         </ProSidebarProvider>
       </ChakraProvider>

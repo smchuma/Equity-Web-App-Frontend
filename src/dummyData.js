@@ -98,7 +98,7 @@ export const Posts = [
   },
   {
     id: 6,
-    photo: "assets/post/6.jpg",
+    photo: "",
     date: "1 day ago",
     desc: "Equity Hawks shooting guard Melissa Akinyi (centre) who had 11 points powers her way through the opposing players’ contact. Equity Hawks are currently leading the standings with 34 points from 18 games played so far. #EquitySports #Basketball",
     userId: 6,

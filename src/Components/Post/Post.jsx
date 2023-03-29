@@ -77,7 +77,9 @@ const Post = ({ post }) => {
           >
             <img
               className="likeIcon"
-              src="assets/images/like.png"
+              src={
+                "https://res.cloudinary.com/smchuma/image/upload/v1680109973/like_ogedgq.png"
+              }
               alt=""
               style={{
                 width: "20px",
