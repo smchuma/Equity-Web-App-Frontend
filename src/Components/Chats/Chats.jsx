@@ -1,6 +1,5 @@
 import { Avatar, Box, Divider, Input, Stack, Text } from "@chakra-ui/react";
 import React from "react";
-import SuggestedUser from "../SuggestedUser/SuggestedUser";
 
 const Chat = () => {
   return (

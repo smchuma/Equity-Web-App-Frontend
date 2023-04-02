@@ -1,4 +1,4 @@
-import { Box, Grid, Heading, SimpleGrid, Stack, Text } from "@chakra-ui/react";
+import { Box, SimpleGrid, Stack, Text } from "@chakra-ui/react";
 import React from "react";
 import GroupsCard from "../../Components/GroupsCard/GroupsCard";
 import "./Groups.scss";

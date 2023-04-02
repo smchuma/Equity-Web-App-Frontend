@@ -21,18 +21,21 @@ import PersonIcon from "@mui/icons-material/Person";
 import HelpIcon from "@mui/icons-material/Help";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { MessageModal, NotificationModal } from "../../Modals";
-import useUser from "../../hooks/useUser";
+import useLogout from "../../hooks/useLogout";
 
 import "./Navbar.scss";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { useState } from "react";
 
 const Navbar = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   const [showNotification, setShowNotification] = useState(false);
-  const { user } = useUser();
+  const logout = useLogout();
 
-  console.log("rrrrr", user);
+  const signOut = async () => {
+    await logout();
+    Navigate("/login");
+  };
 
   const handleNotificationClick = () => {
     setShowNotification(!showNotification);
@@ -165,7 +168,7 @@ const Navbar = () => {
                     />
                     Get help
                   </MenuItem>
-                  <MenuItem>
+                  <MenuItem onClick={signOut}>
                     <LogoutIcon
                       style={{
                         color: "#d97d48",

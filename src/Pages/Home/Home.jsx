@@ -2,8 +2,12 @@ import { Box, Stack } from "@chakra-ui/react";
 import { Post, RightBar } from "../../Components";
 import { Posts } from "../../dummyData";
 import "./Home.scss";
+import useUser from "../../hooks/useUser";
 
 const Home = () => {
+  const { user } = useUser();
+  console.log(user);
+
   return (
     <Box mt="65px" w="100%" className="Home">
       <Stack direction="row" w="100%">

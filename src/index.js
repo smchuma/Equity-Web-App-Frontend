@@ -3,10 +3,13 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter as Router } from "react-router-dom";
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import { ProSidebarProvider } from "react-pro-sidebar";
-import { AuthProvider } from "./Context/auth/AuthProvider";
 import { colors } from "./config/theme";
 import App from "./App";
 import { UserContextProvider } from "./Context/UserContext/UserContext";
+import { AuthContextProvider } from "./Context/Auth/AuthContextProvider";
+import { QueryClient, QueryClientProvider } from "react-query";
+
+const queryClient = new QueryClient();
 
 const activeLabelStyles = {
   transform: "scale(0.85) translateY(-24px)",
@@ -50,15 +53,17 @@ const theme = extendTheme({
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <Router>
-      <ChakraProvider theme={theme}>
-        <ProSidebarProvider>
-          <AuthProvider>
-            <UserContextProvider>
-              <App />
-            </UserContextProvider>
-          </AuthProvider>
-        </ProSidebarProvider>
-      </ChakraProvider>
+      <QueryClientProvider client={queryClient}>
+        <ChakraProvider theme={theme}>
+          <ProSidebarProvider>
+            <AuthContextProvider>
+              <UserContextProvider>
+                <App />
+              </UserContextProvider>
+            </AuthContextProvider>
+          </ProSidebarProvider>
+        </ChakraProvider>
+      </QueryClientProvider>
     </Router>
   </React.StrictMode>
 );

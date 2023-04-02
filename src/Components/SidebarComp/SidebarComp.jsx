@@ -1,19 +1,12 @@
-import {
-  Box,
-  HStack,
-  IconButton,
-  Text,
-  useMediaQuery,
-  VStack,
-} from "@chakra-ui/react";
+import { Box, Text, useMediaQuery } from "@chakra-ui/react";
 import RssFeedIcon from "@mui/icons-material/RssFeed";
 import SearchIcon from "@mui/icons-material/Search";
 import ForumIcon from "@mui/icons-material/Forum";
 import EventIcon from "@mui/icons-material/Event";
 import GroupsIcon from "@mui/icons-material/Groups";
 import "./Sidebar.scss";
-import { Link, NavLink } from "react-router-dom";
-import SearchModal from "../SearchModal/SearchModal";
+import { Link } from "react-router-dom";
+import SearchModal from "../../Modals/SearchModal/SearchModal";
 import { Sidebar, Menu, MenuItem, useProSidebar } from "react-pro-sidebar";
 import { useEffect } from "react";
 

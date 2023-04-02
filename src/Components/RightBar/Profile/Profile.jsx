@@ -33,9 +33,7 @@ const Profile = () => {
         <Box bg="#ffefe5" h="150px" w="100%" rounded="md" />
         <Avatar
           size="2xl"
-          src={
-            "https://www.nndb.com/people/095/000031002/brendan-eich-2-sized.jpg"
-          }
+          src={""}
           position="absolute"
           top="60px"
           left="50%"

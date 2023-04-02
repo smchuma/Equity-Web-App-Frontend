@@ -8,27 +8,26 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import GoogleIcon from "@mui/icons-material/Google";
-
 import { TextField } from "../../Components";
-import useAuth from "../../hooks/useAuth";
-import React, { useState } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+
+import { useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "../../api/axios";
 import { Formik } from "formik";
 
 import * as Yup from "yup";
 import "./Login.scss";
+import useAuth from "../../hooks/useAuth";
 
 const LOGIN_URL = "/login";
 
 const Login = () => {
-  const { setAuth } = useAuth();
+  const [loading, setLoading] = useState(false);
+  const [errMsg, setErrMsg] = useState("");
+  const { login } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  const { from } = location.state || { from: { pathname: "/" } };
-  const [loading, setLoading] = useState(false);
-
-  const [errMsg, setErrMsg] = useState("");
+  const from = location.state?.from?.pathname || "/";
 
   const handleSubmit = async (values, actions) => {
     setLoading(true);
@@ -43,11 +42,12 @@ const Login = () => {
           withCredentials: true,
         }
       );
-
       const accessToken = response?.data?.accessToken;
-      setAuth({ accessToken, user: true });
-      actions.resetForm();
+      const userId = response?.data?.userId;
+      login(accessToken, userId);
       navigate(from, { replace: true });
+      actions.resetForm();
+      setLoading(false);
     } catch (err) {
       if (!err?.response) {
         setErrMsg(
@@ -60,6 +60,10 @@ const Login = () => {
       } else if (err.response?.status === 401) {
         setErrMsg(
           "Invalid email or Password. Please check your credentials and try again"
+        );
+      } else if (err.response?.status === 404) {
+        setErrMsg(
+          "User not found. Please check your credentials and try again"
         );
       } else {
         setErrMsg("Login Failed. Please check your credentials and try again");

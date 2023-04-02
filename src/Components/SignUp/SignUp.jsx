@@ -4,16 +4,12 @@ import {
   Flex,
   FormControl,
   FormLabel,
-  Input,
-  InputGroup,
-  InputRightElement,
-  Stack,
   Text,
   VStack,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import GoogleIcon from "@mui/icons-material/Google";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import TextField from "../Formik/TextField";
@@ -27,14 +23,11 @@ const SignUp = () => {
 
   const [errMsg, setErrMsg] = useState("");
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
-  const location = useLocation();
-  const { setAuth } = useAuth();
+  const { dispatch } = useAuth();
 
   const handleSubmit = async (values, actions) => {
     setLoading(true);
     const { firstname, lastname, email, password } = values;
-    const { from } = location.state || { from: { pathname: "/" } };
 
     try {
       const response = await axios.post(
@@ -46,23 +39,25 @@ const SignUp = () => {
         }
       );
       console.log(JSON.stringify(response?.data));
-
-      //console.log(JSON.stringify(response))
-      const accessToken = response?.data?.accessToken;
-      setAuth({
-        accessToken,
-        user: true,
-      });
-
+      const data = response?.data;
+      dispatch({ type: "LOGIN", payload: data });
       actions.resetForm();
-      navigate(from, { replace: true });
+      setLoading(false);
     } catch (err) {
       if (!err?.response) {
-        setErrMsg("No Server Response");
+        setErrMsg(
+          "No Server Response. Please check your internet connection and try again"
+        );
+      } else if (err.response?.status === 400) {
+        setErrMsg(
+          "Email already exists. Please use a different email or login"
+        );
       } else if (err.response?.status === 409) {
-        setErrMsg("Email Taken");
+        setErrMsg("Email already exists. Please use a different email");
       } else {
-        setErrMsg("Registration Failed");
+        setErrMsg(
+          "Register Failed. Please check your credentials and try again"
+        );
       }
     }
     setLoading(false);
@@ -72,7 +67,12 @@ const SignUp = () => {
       <div className="container-content">
         <div className="left">
           <div className="logo">
-            <img src="assets/images/logo.png" alt="logo" />
+            <img
+              src={
+                "https://res.cloudinary.com/smchuma/image/upload/v1679673932/logo_awmyvm.png"
+              }
+              alt=""
+            />
           </div>
         </div>
         <div className="right">
