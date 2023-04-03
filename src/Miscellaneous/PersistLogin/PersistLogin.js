@@ -6,7 +6,7 @@ import { Outlet } from "react-router-dom";
 const PersistLogin = () => {
   const [isLoading, setIsLoading] = useState(true);
   const refresh = useRefreshToken();
-  const { state, persist } = useAuth();
+  const { state } = useAuth();
 
   useEffect(() => {
     let isMounted = true;
@@ -21,23 +21,20 @@ const PersistLogin = () => {
       }
     };
 
-    // persist added here AFTER tutorial video
     // Avoids unwanted call to verifyRefreshToken
-    !state?.accessToken && persist ? verifyRefreshToken() : setIsLoading(false);
+    !state.accessToken ? verifyRefreshToken() : setIsLoading(false);
 
     return () => (isMounted = false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => {
-    console.log(`isLoading: ${isLoading}`);
-    console.log(`aT: ${JSON.stringify(state?.accessToken)}`);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoading]);
+  // useEffect(() => {
+  //   console.log(`isLoading: ${isLoading}`);
+  //   console.log(`aT: ${JSON.stringify(state?.accessToken)}`);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [isLoading]);
 
-  return (
-    <>{!persist ? <Outlet /> : isLoading ? <p>Loading...</p> : <Outlet />}</>
-  );
+  return <>{isLoading ? <p>Loading...</p> : <Outlet />}</>;
 };
 
 export default PersistLogin;

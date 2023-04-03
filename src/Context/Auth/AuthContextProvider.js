@@ -1,4 +1,5 @@
 import { createContext, useReducer } from "react";
+// const accessToken = localStorage.getItem("accessToken");
 
 const initialState = {
   accessToken: null,
@@ -14,14 +15,13 @@ export const AuthReducer = (state, action) => {
         accessToken: action.payload.accessToken,
         userId: action.payload.userId,
       };
+
     case "LOGOUT":
       return {
         ...state,
         accessToken: null,
         userId: null,
       };
-    case "setPersist":
-      return { ...state, persist: !state.persist };
     default:
       return state;
   }
@@ -37,11 +37,14 @@ export const AuthContextProvider = ({ children }) => {
       type: "LOGIN",
       payload: { accessToken, userId },
     });
+    // localStorage.setItem("accessToken", accessToken);
   };
 
   const logout = () => {
     dispatch({ type: "LOGOUT" });
   };
+
+  // console.log("AuthContextProvider", state);
 
   return (
     <AuthContext.Provider

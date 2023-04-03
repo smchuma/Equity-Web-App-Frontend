@@ -1,20 +1,39 @@
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { Events, Groups, Home, Forum, ProfilePage, ChatsPage } from "./Pages";
 import { UserEvents, About, Badges, Chapters, Inquiries } from "./Sections";
-import { Login, Navbar, SidebarComp, SignUp, RequireAuth } from "./Components";
+import {
+  Login,
+  Navbar,
+  SidebarComp,
+  SignUp,
+  RequireAuth,
+  Page404,
+} from "./Components";
 import "./App.scss";
 import PersistLogin from "./Miscellaneous/PersistLogin/PersistLogin";
+import useAuth from "./hooks/useAuth";
+import { useState } from "react";
+import { useEffect } from "react";
 
 const App = () => {
+  const [isLoggedIn, setIsLoogedIn] = useState(false);
   const location = useLocation();
+  const { state } = useAuth();
+
+  useEffect(() => {
+    const { accessToken } = state;
+    accessToken ? setIsLoogedIn(true) : setIsLoogedIn(false);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="App">
-      {location.pathname !== "/login" && location.pathname !== "/signup" && (
-        <Navbar />
-      )}
-      {location.pathname !== "/login" && location.pathname !== "/signup" && (
-        <SidebarComp id="123" />
+      {isLoggedIn && (
+        <>
+          <Navbar />
+          <SidebarComp />
+        </>
       )}
 
       <Routes>
@@ -38,6 +57,8 @@ const App = () => {
             <Route path="/chats" element={<ChatsPage />} />
           </Route>
         </Route>
+        {/* catch all */}
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </div>
   );

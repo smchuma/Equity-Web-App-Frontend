@@ -9,7 +9,7 @@ import {
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import GoogleIcon from "@mui/icons-material/Google";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import TextField from "../Formik/TextField";
@@ -23,27 +23,33 @@ const SignUp = () => {
 
   const [errMsg, setErrMsg] = useState("");
   const [loading, setLoading] = useState(false);
-  const { dispatch } = useAuth();
+  const { login } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
 
   const handleSubmit = async (values, actions) => {
     setLoading(true);
-    const { firstname, lastname, email, password } = values;
+    const { firstName, lastName, email, password } = values;
 
     try {
       const response = await axios.post(
         REGISTER_URL,
-        JSON.stringify({ firstname, lastname, email, password }),
+        JSON.stringify({ firstName, lastName, email, password }),
         {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
         }
       );
-      console.log(JSON.stringify(response?.data));
-      const data = response?.data;
-      dispatch({ type: "LOGIN", payload: data });
+      console.log(response?.data);
+      const accessToken = response?.data?.accessToken;
+      const userId = response?.data?.userId;
+      login(accessToken, userId);
+      navigate(from, { replace: true });
       actions.resetForm();
       setLoading(false);
     } catch (err) {
+      console.log(err);
       if (!err?.response) {
         setErrMsg(
           "No Server Response. Please check your internet connection and try again"
@@ -59,8 +65,9 @@ const SignUp = () => {
           "Register Failed. Please check your credentials and try again"
         );
       }
+      setLoading(false);
+      console.log(loading);
     }
-    setLoading(false);
   };
   return (
     <div className="container">
@@ -89,15 +96,15 @@ const SignUp = () => {
           <div className="form">
             <Formik
               initialValues={{
-                firstname: "",
-                lastname: "",
+                firstName: "",
+                lastName: "",
                 email: "",
                 password: "",
                 confirmPassword: "",
               }}
               validationSchema={Yup.object({
-                firstname: Yup.string().required("First name required"),
-                lastname: Yup.string().required("Last name required"),
+                firstName: Yup.string().required("First name required"),
+                lastName: Yup.string().required("Last name required"),
                 email: Yup.string()
                   .email("Please enter a valid email address")
                   .required("email required"),
@@ -118,16 +125,16 @@ const SignUp = () => {
                   <FormControl id="firstName" isRequired>
                     <FormLabel>First Name</FormLabel>
                     <TextField
-                      name="firstname"
-                      placeholder="enter firstname"
+                      name="firstName"
+                      placeholder="enter firstName"
                       type="text"
                     />
                   </FormControl>
-                  <FormControl id="lastname" isRequired>
+                  <FormControl id="lastName" isRequired>
                     <FormLabel>Last Name</FormLabel>
                     <TextField
-                      name="lastname"
-                      placeholder="enter lastname"
+                      name="lastName"
+                      placeholder="enter lastName"
                       type="text"
                     />
                   </FormControl>

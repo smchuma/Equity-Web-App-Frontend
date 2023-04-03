@@ -11,3 +11,4 @@ export { default as Login } from "./Login/Login";
 export { default as SignUp } from "./SignUp/SignUp";
 export { default as TextField } from "./Formik/TextField";
 export { default as RequireAuth } from "../Miscellaneous/RequireAuth/RequireAuth";
+export { default as Page404 } from "./404/Page404";

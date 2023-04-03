@@ -22,7 +22,7 @@ import HelpIcon from "@mui/icons-material/Help";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { MessageModal, NotificationModal } from "../../Modals";
 import useLogout from "../../hooks/useLogout";
-
+import useUser from "../../hooks/useUser";
 import "./Navbar.scss";
 import { Link, Navigate } from "react-router-dom";
 import { useState } from "react";
@@ -31,6 +31,7 @@ const Navbar = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   const [showNotification, setShowNotification] = useState(false);
   const logout = useLogout();
+  const { user } = useUser();
 
   const signOut = async () => {
     await logout();
@@ -46,6 +47,13 @@ const Navbar = () => {
     { id: 2, text: "You have a meeting at 2pm" },
     { id: 3, text: "Your order has been shipped" },
   ];
+
+  const firstName = `${user.firstName
+    .charAt(0)
+    .toUpperCase()}${user.firstName.slice(1)}`;
+  const lastName = `${user.lastName
+    .charAt(0)
+    .toUpperCase()}${user.lastName.slice(1)}`;
 
   return (
     <>
@@ -118,24 +126,22 @@ const Navbar = () => {
                 >
                   <Avatar
                     size={"md"}
-                    src={
-                      "https://www.nndb.com/people/095/000031002/brendan-eich-2-sized.jpg"
-                    }
+                    name={`${user.firstName}`}
+                    src={user.profilePicture}
+                    sx={{
+                      border: "2px solid ",
+                      borderColor: "gray.300",
+                    }}
                   />
                 </MenuButton>
                 <MenuList alignItems={"center"}>
                   <br />
                   <Center>
-                    <Avatar
-                      size={"2xl"}
-                      src={
-                        "https://www.nndb.com/people/095/000031002/brendan-eich-2-sized.jpg"
-                      }
-                    />
+                    <Avatar size={"2xl"} name={user.firstName} src={""} />
                   </Center>
                   <br />
                   <Center>
-                    <p>Brendan Eich</p>
+                    <p>{`${firstName} ${lastName}`}</p>
                   </Center>
                   <br />
                   <MenuDivider />

@@ -6,7 +6,7 @@ import useRefreshToken from "../../hooks/useRefresh";
 
 const UserContext = createContext();
 
-export const UserContextProvider = ({ children }) => {
+export const UserContextProvider = ({ children, fetchUser = true }) => {
   const { state } = useAuth();
   const { userId } = state;
   const refreshAccessToken = useRefreshToken();
@@ -25,7 +25,10 @@ export const UserContextProvider = ({ children }) => {
       return data;
     },
     {
-      enabled: !!state.accessToken,
+      enabled: fetchUser && !!state.accessToken,
+      onSuccess: () => {
+        console.log("User data fetched");
+      },
       onError: (error) => {
         if (error.response?.status === 403 || error.response?.status === 401) {
           console.log("Token expired");
@@ -36,7 +39,10 @@ export const UserContextProvider = ({ children }) => {
   );
 
   if (isLoading) return <div>Loading...</div>;
-  if (isError) return <div>Error fetching user data</div>;
+  if (isError) {
+    return <div>Error fetching user data</div>;
+  }
+
   return (
     <UserContext.Provider
       value={{

@@ -42,6 +42,7 @@ const Login = () => {
           withCredentials: true,
         }
       );
+
       const accessToken = response?.data?.accessToken;
       const userId = response?.data?.userId;
       login(accessToken, userId);
