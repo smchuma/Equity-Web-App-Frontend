@@ -14,49 +14,50 @@ import PersistLogin from "./Miscellaneous/PersistLogin/PersistLogin";
 import useAuth from "./hooks/useAuth";
 import { useState } from "react";
 import { useEffect } from "react";
+import { Layout } from "./Components";
 
 const App = () => {
-  const [isLoggedIn, setIsLoogedIn] = useState(false);
-  const location = useLocation();
-  const { state } = useAuth();
+  // const [isLoggedIn, setIsLoogedIn] = useState(false);
+  // const location = useLocation();
+  // const { state } = useAuth();
 
-  useEffect(() => {
-    const { accessToken } = state;
-    accessToken ? setIsLoogedIn(true) : setIsLoogedIn(false);
+  // useEffect(() => {
+  //   const { accessToken } = state;
+  //   accessToken ? setIsLoogedIn(true) : setIsLoogedIn(false);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   return (
     <div className="App">
-      {isLoggedIn && (
-        <>
-          <Navbar />
-          <SidebarComp />
-        </>
-      )}
+      <>
+        <Navbar />
+        {/* <SidebarComp /> */}
+      </>
 
       <Routes>
         {/* pulbic routes */}
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         {/* private routes */}
-        <Route element={<PersistLogin />}>
-          <Route element={<RequireAuth />}>
-            <Route path="/" element={<Home />} />
-            <Route path="/profile" element={<ProfilePage />}>
-              <Route path="about" element={<About />} />
-              <Route path="inquiries" element={<Inquiries />} />
-              <Route path="chapters" element={<Chapters />} />
-              <Route path="badges" element={<Badges />} />
-              <Route path="events" element={<UserEvents />} />
-            </Route>
-            <Route path="/events" element={<Events />} />
-            <Route path="/forum" element={<Forum />} />
-            <Route path="/groups" element={<Groups />} />
-            <Route path="/chats" element={<ChatsPage />} />
+        <Route path="/" element={<Layout />}>
+          {/* <Route element={<PersistLogin />}> */}
+          {/* <Route element={<RequireAuth />}> */}
+          <Route path="/" element={<Home />} />
+          <Route path="/profile" element={<ProfilePage />}>
+            <Route path="about" element={<About />} />
+            <Route path="inquiries" element={<Inquiries />} />
+            <Route path="chapters" element={<Chapters />} />
+            <Route path="badges" element={<Badges />} />
+            <Route path="events" element={<UserEvents />} />
           </Route>
+          <Route path="/events" element={<Events />} />
+          <Route path="/forum" element={<Forum />} />
+          <Route path="/groups" element={<Groups />} />
+          <Route path="/chats" element={<ChatsPage />} />
         </Route>
+        {/* </Route> */}
+        {/* </Route> */}
         {/* catch all */}
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>

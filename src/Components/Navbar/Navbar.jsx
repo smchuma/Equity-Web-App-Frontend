@@ -48,12 +48,12 @@ const Navbar = () => {
     { id: 3, text: "Your order has been shipped" },
   ];
 
-  const firstName = `${user.firstName
-    .charAt(0)
-    .toUpperCase()}${user.firstName.slice(1)}`;
-  const lastName = `${user.lastName
-    .charAt(0)
-    .toUpperCase()}${user.lastName.slice(1)}`;
+  // const firstName = `${user.firstName
+  //   .charAt(0)
+  //   .toUpperCase()}${user.firstName.slice(1)}`;
+  // const lastName = `${user.lastName
+  //   .charAt(0)
+  //   .toUpperCase()}${user.lastName.slice(1)}`;
 
   return (
     <>
@@ -126,8 +126,8 @@ const Navbar = () => {
                 >
                   <Avatar
                     size={"md"}
-                    name={`${user.firstName}`}
-                    src={user.profilePicture}
+                    // name={`${user.firstName}`}
+                    // src={user.profilePicture}
                     sx={{
                       border: "2px solid ",
                       borderColor: "gray.300",
@@ -137,12 +137,10 @@ const Navbar = () => {
                 <MenuList alignItems={"center"}>
                   <br />
                   <Center>
-                    <Avatar size={"2xl"} name={user.firstName} src={""} />
+                    {/* <Avatar size={"2xl"} name={user.firstName} src={""} /> */}
                   </Center>
                   <br />
-                  <Center>
-                    <p>{`${firstName} ${lastName}`}</p>
-                  </Center>
+                  <Center>{/* <p>{`${firstName} ${lastName}`}</p> */}</Center>
                   <br />
                   <MenuDivider />
                   <Link to="/profile">

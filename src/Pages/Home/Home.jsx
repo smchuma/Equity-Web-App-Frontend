@@ -5,8 +5,8 @@ import "./Home.scss";
 
 const Home = () => {
   return (
-    <Box mt="65px" w="100%" className="Home">
-      <Stack direction="row" w="100%">
+    <Box className="Home">
+      {/* <Stack direction="row" w="100%">
         <Box w="calc(100%-80%)" mt="40px">
           {Posts.map((post) => (
             <Post key={post.id} post={post} />
@@ -15,7 +15,8 @@ const Home = () => {
         <Box w="80%" className="rightBar">
           <RightBar />
         </Box>
-      </Stack>
+      </Stack> */}
+      <h1>home</h1>
     </Box>
   );
 };

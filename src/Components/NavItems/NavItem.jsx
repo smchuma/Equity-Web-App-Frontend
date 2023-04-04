@@ -7,38 +7,47 @@ import {
   Menu,
   MenuButton,
   MenuList,
+  IconButton,
 } from "@chakra-ui/react";
 
-export default function NavItem({ icon, title, description, active, navSize }) {
+export default function NavItem({ icon, title, active }) {
   return (
     <Flex
-      mt={30}
+      mt={10}
       flexDir="column"
       w="100%"
-      alignItems={navSize === "small" ? "center" : "flex-start"}
+      alignItems={{
+        base: "center",
+        md: "flex-start",
+      }}
     >
       <Menu placement="right">
         <Link
-          backgroundColor={active && "#AEC8CA"}
+          backgroundColor={active && "brand.primary"}
           p={3}
-          borderRadius={8}
-          _hover={{ textDecor: "none", backgroundColor: "brand.primary" }}
-          w={navSize === "large" && "100%"}
+          _hover={{
+            textDecor: "none",
+            backgroundColor: "brand.primary",
+            color: "white",
+            borderRadius: "10px",
+          }}
         >
           <MenuButton w={{ base: "full", md: "auto" }}>
-            <Flex>
-              <Icon
-                as={icon}
-                fontSize="xl"
-                color={active ? "brand.primary" : "gray.500"}
+            <Flex align="center">
+              <IconButton
+                display={{ base: "none", md: "flex" }}
+                icon={icon}
+                fontSize="30px"
+                color="brand.secondary"
+                bg="transparent"
               />
-              <Text ml={5} d={{ base: "flex", md: "none", sm: "none" }}>
+
+              <Text ml={5} display={{ base: "none", md: "none", lg: "flex" }}>
                 {title}
               </Text>
             </Flex>
           </MenuButton>
         </Link>
-        <MenuList py={0} border="none" w={200} h={200} ml={5}></MenuList>
       </Menu>
     </Flex>
   );
