@@ -1,16 +1,7 @@
 import React from "react";
-import {
-  Flex,
-  Text,
-  Icon,
-  Link,
-  Menu,
-  MenuButton,
-  MenuList,
-  IconButton,
-} from "@chakra-ui/react";
-
-export default function NavItem({ icon, title, active }) {
+import { Flex, Text, Menu, IconButton, Box } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
+export default function NavItem({ icon, title, link, active }) {
   return (
     <Flex
       mt={10}
@@ -22,17 +13,18 @@ export default function NavItem({ icon, title, active }) {
       }}
     >
       <Menu placement="right">
-        <Link
+        <Box
           backgroundColor={active && "brand.primary"}
+          width="100%"
           p={3}
           _hover={{
             textDecor: "none",
-            backgroundColor: "brand.primary",
+            backgroundColor: "brand.tomato",
             color: "white",
             borderRadius: "10px",
           }}
         >
-          <MenuButton w={{ base: "full", md: "auto" }}>
+          <Link to={link}>
             <Flex align="center">
               <IconButton
                 display={{ base: "none", md: "flex" }}
@@ -40,14 +32,18 @@ export default function NavItem({ icon, title, active }) {
                 fontSize="30px"
                 color="brand.secondary"
                 bg="transparent"
+                _hover={{
+                  textDecor: "none",
+                  backgroundColor: "transparent",
+                  color: "white",
+                }}
               />
-
               <Text ml={5} display={{ base: "none", md: "none", lg: "flex" }}>
                 {title}
               </Text>
             </Flex>
-          </MenuButton>
-        </Link>
+          </Link>
+        </Box>
       </Menu>
     </Flex>
   );

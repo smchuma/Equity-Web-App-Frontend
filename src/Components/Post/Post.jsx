@@ -18,7 +18,7 @@ const Post = ({ post }) => {
   const { photo, date, desc, comment, like } = post;
 
   return (
-    <div className="post">
+    <div>
       <Stack cursor="pointer" mb={14} backgroundColor="transparent">
         <Flex
           boxShadow="md"

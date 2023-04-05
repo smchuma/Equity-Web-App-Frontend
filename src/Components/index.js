@@ -14,3 +14,4 @@ export { default as RequireAuth } from "../Miscellaneous/RequireAuth/RequireAuth
 export { default as Page404 } from "./404/Page404";
 export { default as Layout } from "./Layout/Layout";
 export { default as NavItem } from "./NavItems/NavItem";
+export { default as HamburgerMenu } from "./HamburgerMenu/HamburgerMenu";

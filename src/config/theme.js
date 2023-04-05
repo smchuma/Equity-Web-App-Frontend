@@ -6,6 +6,7 @@ export const colors = {
     secondary: "#d97d48",
     blackish: "#221f1f",
     primaryDark: "#8a2323",
+    tomato: "#ce4040",
     black: "#000",
     white: "#fff",
     whiteSmoke: "#F5F5F5",
