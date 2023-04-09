@@ -1,6 +1,5 @@
 import { Avatar, Box, Divider, Input, Stack, Text } from "@chakra-ui/react";
 import React from "react";
-import SuggestedUser from "../SuggestedUser/SuggestedUser";
 
 const Chat = () => {
   return (
@@ -11,9 +10,7 @@ const Chat = () => {
             alignItems={"center"}
             justifyContent="space-between"
             direction="row"
-          >
-            <Text variant="h5">Online</Text>
-          </Stack>
+          ></Stack>
           <Stack sx={{ width: "100%" }}>
             <Input
               sx={{ width: "100%" }}

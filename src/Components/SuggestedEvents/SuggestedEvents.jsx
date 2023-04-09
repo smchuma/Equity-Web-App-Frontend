@@ -1,12 +1,4 @@
-import {
-  Box,
-  Divider,
-  Heading,
-  HStack,
-  Image,
-  Stack,
-  Text,
-} from "@chakra-ui/react";
+import { Box, HStack, Image, Stack, Text } from "@chakra-ui/react";
 import React from "react";
 
 const SuggestedEvents = () => {

@@ -13,6 +13,7 @@ import {
   useColorMode,
   Center,
   Image,
+  useDisclosure,
 } from "@chakra-ui/react";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import WbSunnyIcon from "@mui/icons-material/WbSunny";
@@ -21,14 +22,24 @@ import PersonIcon from "@mui/icons-material/Person";
 import HelpIcon from "@mui/icons-material/Help";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { MessageModal, NotificationModal } from "../../Modals";
-
+import useUser from "../../hooks/useUser";
+import MenuIcon from "@mui/icons-material/Menu";
 import "./Navbar.scss";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { useState } from "react";
+import HamburgerMenu from "../HamburgerMenu/HamburgerMenu";
+import useAuth from "../../hooks/useAuth";
 
 const Navbar = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   const [showNotification, setShowNotification] = useState(false);
+  const { user } = useUser();
+  const { logout } = useAuth();
+
+  const signOut = async () => {
+    await logout();
+    Navigate("/login");
+  };
 
   const handleNotificationClick = () => {
     setShowNotification(!showNotification);
@@ -40,45 +51,78 @@ const Navbar = () => {
     { id: 3, text: "Your order has been shipped" },
   ];
 
+  const firstName = `${user.firstName
+    .charAt(0)
+    .toUpperCase()}${user.firstName.slice(1)}`;
+  const lastName = `${user.lastName
+    .charAt(0)
+    .toUpperCase()}${user.lastName.slice(1)}`;
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [placement, setPlacement] = useState("left");
   return (
     <>
       <Box
         bg={useColorModeValue("gray.100", "gray.900")}
-        sx={{
-          paddingLeft: "25px",
-          paddingRight: "120px",
-          cursor: "pointer",
-        }}
+        paddingLeft="25px"
+        paddingRight="120px"
+        cursor="pointer"
         pos="fixed"
         top="0"
+        left="0"
         zIndex="sticky"
         boxShadow="md"
         w="100%"
+        h="65px"
       >
         <Flex h="65px" alignItems={"center"} justifyContent={"space-between"}>
-          <Box>
-            {colorMode === "light" ? (
-              <Image
-                src={
-                  "https://res.cloudinary.com/smchuma/image/upload/v1679673932/logo_awmyvm.png"
-                }
-                alt="logo"
-                boxSize="80px"
-                objectFit="contain"
-                loading="lazy"
+          <Flex alignItems={"center"}>
+            <Box>
+              {colorMode === "light" ? (
+                <Image
+                  src={
+                    "https://res.cloudinary.com/smchuma/image/upload/v1679673932/logo_awmyvm.png"
+                  }
+                  alt="logo"
+                  boxSize="80px"
+                  objectFit="contain"
+                  loading="lazy"
+                />
+              ) : (
+                <Image
+                  src={
+                    "https://res.cloudinary.com/smchuma/image/upload/v1679674079/logoWhite_xjpk3i.png"
+                  }
+                  alt="logo"
+                  boxSize="80px"
+                  objectFit="contain"
+                  loading="lazy"
+                />
+              )}
+            </Box>
+            <Box
+              display={{
+                base: "block",
+                md: "none",
+              }}
+            >
+              <MenuIcon
+                onClick={onOpen}
+                style={{
+                  color: colorMode === "light" ? "#000" : "#fff",
+                  fontSize: "40px",
+                  marginLeft: "20px",
+                }}
               />
-            ) : (
-              <Image
-                src={
-                  "https://res.cloudinary.com/smchuma/image/upload/v1679674079/logoWhite_xjpk3i.png"
-                }
-                alt="logo"
-                boxSize="80px"
-                objectFit="contain"
-                loading="lazy"
+
+              <HamburgerMenu
+                isOpen={isOpen}
+                onClose={onClose}
+                placement={placement}
+                setPlacement={setPlacement}
               />
-            )}
-          </Box>
+            </Box>
+          </Flex>
 
           <Flex>
             <Stack direction={"row"} spacing={7} align="center">
@@ -104,32 +148,29 @@ const Navbar = () => {
 
               <Menu>
                 <MenuButton
-                  as={Button}
+                  as="div"
                   rounded={"full"}
                   variant={"link"}
                   cursor={"pointer"}
-                  minW={0}
                 >
                   <Avatar
                     size={"md"}
-                    src={
-                      "https://www.nndb.com/people/095/000031002/brendan-eich-2-sized.jpg"
-                    }
+                    name={`${user.firstName}`}
+                    src={user.profilePicture}
+                    sx={{
+                      border: "2px solid ",
+                      borderColor: "gray.300",
+                    }}
                   />
                 </MenuButton>
                 <MenuList alignItems={"center"}>
                   <br />
                   <Center>
-                    <Avatar
-                      size={"2xl"}
-                      src={
-                        "https://www.nndb.com/people/095/000031002/brendan-eich-2-sized.jpg"
-                      }
-                    />
+                    <Avatar size={"2xl"} name={user.firstName} src={""} />
                   </Center>
                   <br />
                   <Center>
-                    <p>Brendan Eich</p>
+                    <p>{`${firstName} ${lastName}`}</p>
                   </Center>
                   <br />
                   <MenuDivider />
@@ -162,7 +203,7 @@ const Navbar = () => {
                     />
                     Get help
                   </MenuItem>
-                  <MenuItem>
+                  <MenuItem onClick={signOut}>
                     <LogoutIcon
                       style={{
                         color: "#d97d48",

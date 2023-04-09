@@ -12,6 +12,7 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import { Link, Outlet } from "react-router-dom";
+import useUser from "../../../hooks/useUser";
 
 const Profile = () => {
   const links = [
@@ -21,6 +22,14 @@ const Profile = () => {
     { label: "Badges", path: "/profile/badges" },
     { label: "Events", path: "/profile/events" },
   ];
+  const { user } = useUser();
+
+  const firstName = `${user.firstName
+    .charAt(0)
+    .toUpperCase()}${user.firstName.slice(1)}`;
+  const lastName = `${user.lastName
+    .charAt(0)
+    .toUpperCase()}${user.lastName.slice(1)}`;
 
   return (
     <Stack direction="column">
@@ -33,9 +42,8 @@ const Profile = () => {
         <Box bg="#ffefe5" h="150px" w="100%" rounded="md" />
         <Avatar
           size="2xl"
-          src={
-            "https://www.nndb.com/people/095/000031002/brendan-eich-2-sized.jpg"
-          }
+          name={user.firstName}
+          src={""}
           position="absolute"
           top="60px"
           left="50%"
@@ -47,7 +55,7 @@ const Profile = () => {
         <Flex align="center" p="4" justify="center">
           <Box>
             <Heading as="h3" size="lg" mt={8}>
-              Brendan Eich
+              {firstName} {lastName}
             </Heading>
             <Flex align="center" justify="center" mt={3}>
               <IconButton

@@ -5,23 +5,19 @@ const SuggestedUser = ({ isOnline }) => {
   const users = [
     {
       name: "Avicii",
-      image:
-        "https://i.pinimg.com/originals/0c/0d/0d/0c0d0d8b1b0f1b0e1c1b1b1b1b1b1b1b.jpg",
+      image: "",
     },
     {
       name: "Taylor Swift",
-      image:
-        "https://www.billboard.com/wp-content/uploads/2023/02/taylor-swift-2023-grammys-red-carpet-billboard-1548.jpg?w=942&h=623&crop=1",
+      image: "",
     },
     {
       name: "Justin Bieber",
-      image:
-        "https://hips.hearstapps.com/hmg-prod/images/justin-bieber-gettyimages-1202421980.jpg?resize=1200:*",
+      image: "",
     },
     {
       name: "Selena Gomez",
-      image:
-        "https://www.billboard.com/wp-content/uploads/2023/02/09-Selena-Gomez-2023-billboard-1548.jpg?w=942&h=623&crop=1",
+      image: "",
     },
   ];
   return (

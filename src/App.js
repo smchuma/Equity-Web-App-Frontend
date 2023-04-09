@@ -1,22 +1,36 @@
-import React from "react";
-import { Route, Routes } from "react-router-dom";
-import { Events, Groups, Home, Forum, ProfilePage } from "./Pages";
+import { Navigate, Route, Routes } from "react-router-dom";
+import { Events, Groups, Home, Forum, ProfilePage, ChatsPage } from "./Pages";
 import { UserEvents, About, Badges, Chapters, Inquiries } from "./Sections";
+import { Login, Navbar, SignUp, RequireAuth } from "./Components";
 import "./App.scss";
-import { Login, Navbar, Sidebar, SignUp } from "./Components";
-import { Box, Flex } from "@chakra-ui/react";
+import useAuth from "./hooks/useAuth";
+import { useState } from "react";
+import { useEffect } from "react";
+import { Layout } from "./Components";
 
 const App = () => {
-  return (
-    <>
-      <Navbar />
-      <Flex>
-        <Sidebar id="123" />
-        <Box flex="1" ml="250px">
-          <Routes>
-            <Route path="login" element={<Login />} />
-            <Route path="signup" element={<SignUp />} />
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { state } = useAuth();
 
+  useEffect(() => {
+    const { accessToken } = state;
+    accessToken ? setIsLoggedIn(true) : setIsLoggedIn(false);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return (
+    <div className="App">
+      {isLoggedIn && <Navbar />}
+      <Routes>
+        {/* pulbic routes */}
+
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
+
+        {/* private routes */}
+        <Route path="/" element={<Layout />}>
+          <Route element={<RequireAuth />}>
             <Route path="/" element={<Home />} />
             <Route path="/profile" element={<ProfilePage />}>
               <Route path="about" element={<About />} />
@@ -28,10 +42,12 @@ const App = () => {
             <Route path="/events" element={<Events />} />
             <Route path="/forum" element={<Forum />} />
             <Route path="/groups" element={<Groups />} />
-          </Routes>
-        </Box>
-      </Flex>
-    </>
+            <Route path="/chats" element={<ChatsPage />} />
+          </Route>
+        </Route>
+        <Route path="*" element={<Navigate to="/" />} />
+      </Routes>
+    </div>
   );
 };
 

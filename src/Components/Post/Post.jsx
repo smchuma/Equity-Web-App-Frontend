@@ -18,19 +18,13 @@ const Post = ({ post }) => {
   const { photo, date, desc, comment, like } = post;
 
   return (
-    <div className="post">
-      <Stack
-        boxShadow="md"
-        borderRadius="md"
-        borderWidth="1px"
-        borderColor="subtleBorderColor"
-        cursor="pointer"
-        marginLeft={4}
-        marginRight={4}
-        mb={14}
-        backgroundColor="transparent"
-      >
+    <div>
+      <Stack cursor="pointer" mb={14} backgroundColor="transparent">
         <Flex
+          boxShadow="md"
+          borderRadius="md"
+          borderWidth="1px"
+          borderColor="subtleBorderColor"
           borderBottomWidth="2px"
           borderBottomColor="gray.200"
           paddingBottom={2}
@@ -83,7 +77,9 @@ const Post = ({ post }) => {
           >
             <img
               className="likeIcon"
-              src="assets/images/like.png"
+              src={
+                "https://res.cloudinary.com/smchuma/image/upload/v1680109973/like_ogedgq.png"
+              }
               alt=""
               style={{
                 width: "20px",

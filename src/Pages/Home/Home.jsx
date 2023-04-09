@@ -1,36 +1,33 @@
 import { Box, Flex } from "@chakra-ui/react";
 import { Post, RightBar } from "../../Components";
 import { Posts } from "../../dummyData";
+import "./Home.scss";
+import useAuth from "../../hooks/useAuth";
 
 const Home = () => {
   return (
-    <Flex
-      sx={{
-        marginRight: "350px",
-        paddingTop: "65px",
-      }}
-    >
+    <Flex justifyContent="center">
       <Box
+        mt="50px"
         flex="1"
-        style={{
-          marginLeft: "200px",
-          marginRight: "250px",
-          marginTop: "40px",
+        px={{
+          base: 10,
+          lg: "150px",
         }}
       >
-        {Posts.map((post) => (
-          <Post key={post.id} post={post} />
-        ))}
+        <Box>
+          {Posts.map((post) => (
+            <Post key={post.id} post={post} />
+          ))}
+        </Box>
       </Box>
       <Box
-        flex="0.5"
-        pos="fixed"
-        right="0"
-        w="350px"
-        style={{
-          marginTop: "40px",
-          marginRight: "120px",
-        }}
+        mt="50px"
+        paddingX={10}
+        flexBasis="400px"
+        flexGrow={0}
+        flexShrink={0}
+        display={{ base: "none", lg: "block" }}
       >
         <RightBar />
       </Box>

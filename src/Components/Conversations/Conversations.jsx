@@ -6,9 +6,11 @@ import {
   InputLeftAddon,
   InputRightAddon,
   Stack,
+  Text,
 } from "@chakra-ui/react";
 import SendIcon from "@mui/icons-material/Send";
 import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
+import { Messages } from "../../Components";
 
 const Conversations = () => {
   return (
@@ -19,9 +21,9 @@ const Conversations = () => {
         borderWidth="1px"
         borderColor="subtleBorderColor"
       >
-        <Heading py={4} px={4} color="brand.secondary">
+        <Text py={2} px={4} color="brand.secondary">
           <b>#Forum name</b>
-        </Heading>
+        </Text>
       </Box>
       <Box
         w="100%"
@@ -29,7 +31,7 @@ const Conversations = () => {
           flexGrow: 1,
         }}
       >
-        messages
+        <Messages />
       </Box>
       <Box p={4} width="100%">
         <Stack direction="row" w="100%">
