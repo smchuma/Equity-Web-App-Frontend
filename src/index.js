@@ -8,6 +8,7 @@ import App from "./App";
 import { UserContextProvider } from "./Context/UserContext/UserContext";
 import { AuthContextProvider } from "./Context/Auth/AuthContextProvider";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { ForumContextProvider } from "./Context/ForumContext/ForumContext";
 
 const queryClient = new QueryClient();
 
@@ -58,7 +59,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <ProSidebarProvider>
             <AuthContextProvider>
               <UserContextProvider>
-                <App />
+                <ForumContextProvider>
+                  <App />
+                </ForumContextProvider>
               </UserContextProvider>
             </AuthContextProvider>
           </ProSidebarProvider>

@@ -10,9 +10,7 @@ const Chat = () => {
             alignItems={"center"}
             justifyContent="space-between"
             direction="row"
-          >
-            <Text variant="h5">Online</Text>
-          </Stack>
+          ></Stack>
           <Stack sx={{ width: "100%" }}>
             <Input
               sx={{ width: "100%" }}

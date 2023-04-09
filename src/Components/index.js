@@ -15,3 +15,6 @@ export { default as Page404 } from "./404/Page404";
 export { default as Layout } from "./Layout/Layout";
 export { default as NavItem } from "./NavItems/NavItem";
 export { default as HamburgerMenu } from "./HamburgerMenu/HamburgerMenu";
+export { default as Messages } from "./Chats/Messages";
+export { default as ForumInput } from "././ForumPost/ForumInput";
+export { default as ForumPost } from "././ForumPost/ForumPost";

@@ -22,19 +22,19 @@ import PersonIcon from "@mui/icons-material/Person";
 import HelpIcon from "@mui/icons-material/Help";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { MessageModal, NotificationModal } from "../../Modals";
-import useLogout from "../../hooks/useLogout";
 import useUser from "../../hooks/useUser";
 import MenuIcon from "@mui/icons-material/Menu";
 import "./Navbar.scss";
 import { Link, Navigate } from "react-router-dom";
 import { useState } from "react";
 import HamburgerMenu from "../HamburgerMenu/HamburgerMenu";
+import useAuth from "../../hooks/useAuth";
 
 const Navbar = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   const [showNotification, setShowNotification] = useState(false);
-  const logout = useLogout();
   const { user } = useUser();
+  const { logout } = useAuth();
 
   const signOut = async () => {
     await logout();
@@ -51,12 +51,12 @@ const Navbar = () => {
     { id: 3, text: "Your order has been shipped" },
   ];
 
-  // const firstName = `${user.firstName
-  //   .charAt(0)
-  //   .toUpperCase()}${user.firstName.slice(1)}`;
-  // const lastName = `${user.lastName
-  //   .charAt(0)
-  //   .toUpperCase()}${user.lastName.slice(1)}`;
+  const firstName = `${user.firstName
+    .charAt(0)
+    .toUpperCase()}${user.firstName.slice(1)}`;
+  const lastName = `${user.lastName
+    .charAt(0)
+    .toUpperCase()}${user.lastName.slice(1)}`;
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [placement, setPlacement] = useState("left");
@@ -155,8 +155,8 @@ const Navbar = () => {
                 >
                   <Avatar
                     size={"md"}
-                    // name={`${user.firstName}`}
-                    // src={user.profilePicture}
+                    name={`${user.firstName}`}
+                    src={user.profilePicture}
                     sx={{
                       border: "2px solid ",
                       borderColor: "gray.300",
@@ -166,10 +166,12 @@ const Navbar = () => {
                 <MenuList alignItems={"center"}>
                   <br />
                   <Center>
-                    {/* <Avatar size={"2xl"} name={user.firstName} src={""} /> */}
+                    <Avatar size={"2xl"} name={user.firstName} src={""} />
                   </Center>
                   <br />
-                  <Center>{/* <p>{`${firstName} ${lastName}`}</p> */}</Center>
+                  <Center>
+                    <p>{`${firstName} ${lastName}`}</p>
+                  </Center>
                   <br />
                   <MenuDivider />
                   <Link to="/profile">

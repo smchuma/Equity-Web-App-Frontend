@@ -1,10 +1,9 @@
-import { createContext, useReducer } from "react";
-// const accessToken = localStorage.getItem("accessToken");
+import { createContext, useReducer, useEffect } from "react";
+import Cookies from "js-cookie";
 
 const initialState = {
-  accessToken: null,
-  userId: null,
-  persist: JSON.parse(localStorage.getItem("persist")) || false,
+  accessToken: Cookies.get("accessToken") || null,
+  userId: Cookies.get("userId") || null,
 };
 
 export const AuthReducer = (state, action) => {
@@ -37,14 +36,36 @@ export const AuthContextProvider = ({ children }) => {
       type: "LOGIN",
       payload: { accessToken, userId },
     });
-    // localStorage.setItem("accessToken", accessToken);
+    Cookies.set("accessToken", accessToken, {
+      secure: true,
+      sameSite: "strict",
+    });
+    Cookies.set("userId", userId, { secure: true, sameSite: "strict" });
   };
 
-  const logout = () => {
+  const logout = async () => {
+    try {
+      await fetch("http://localhost:3500/logout", {
+        method: "POST",
+        credentials: "include",
+      });
+    } catch (error) {
+      console.error(error);
+    }
     dispatch({ type: "LOGOUT" });
+    Cookies.remove("accessToken");
+    Cookies.remove("userId");
   };
 
-  // console.log("AuthContextProvider", state);
+  useEffect(() => {
+    if (state.accessToken) {
+      Cookies.set("accessToken", state.accessToken, {
+        secure: true,
+        sameSite: "strict",
+      });
+      Cookies.set("userId", state.userId, { secure: true, sameSite: "strict" });
+    }
+  }, [state]);
 
   return (
     <AuthContext.Provider
