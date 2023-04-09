@@ -3,7 +3,6 @@ import {
   Drawer,
   DrawerBody,
   DrawerContent,
-  DrawerHeader,
   DrawerOverlay,
   Flex,
   Text,
@@ -14,7 +13,6 @@ import ForumIcon from "@mui/icons-material/Forum";
 import EventIcon from "@mui/icons-material/Event";
 import GroupsIcon from "@mui/icons-material/Groups";
 import SearchModal from "../../Modals/SearchModal/SearchModal";
-import NavItem from "../NavItems/NavItem";
 
 const HamburgerMenu = ({
   onOpen,

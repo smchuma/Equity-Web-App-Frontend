@@ -1,27 +1,14 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import { Events, Groups, Home, Forum, ProfilePage, ChatsPage } from "./Pages";
 import { UserEvents, About, Badges, Chapters, Inquiries } from "./Sections";
-import { Login, Navbar, SignUp, RequireAuth } from "./Components";
+import { Login, SignUp, RequireAuth } from "./Components";
 import "./App.scss";
-import useAuth from "./hooks/useAuth";
-import { useState } from "react";
-import { useEffect } from "react";
+
 import { Layout } from "./Components";
 
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const { state } = useAuth();
-
-  useEffect(() => {
-    const { accessToken } = state;
-    accessToken ? setIsLoggedIn(true) : setIsLoggedIn(false);
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   return (
     <div className="App">
-      {isLoggedIn && <Navbar />}
       <Routes>
         {/* pulbic routes */}
 

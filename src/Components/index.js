@@ -18,3 +18,5 @@ export { default as HamburgerMenu } from "./HamburgerMenu/HamburgerMenu";
 export { default as Messages } from "./Chats/Messages";
 export { default as ForumInput } from "././ForumPost/ForumInput";
 export { default as ForumPost } from "././ForumPost/ForumPost";
+export { default as SkeletonLoader } from "./SkeletonLoader/SkeletonLoader";
+export { default as FeedInput } from "./FeedInput/FeedInput";

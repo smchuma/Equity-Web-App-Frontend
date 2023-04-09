@@ -1,6 +1,5 @@
 import {
   Box,
-  Heading,
   Input,
   InputGroup,
   InputLeftAddon,

@@ -1,4 +1,4 @@
-import { Box, Heading, Stack, Text, useColorModeValue } from "@chakra-ui/react";
+import { Box, Stack, Text, useColorModeValue } from "@chakra-ui/react";
 import React from "react";
 
 const ForumRight = () => {

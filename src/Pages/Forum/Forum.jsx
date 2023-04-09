@@ -1,19 +1,13 @@
 import { Box, Flex, Stack } from "@chakra-ui/react";
-import { ForumInput, ForumPost } from "../../Components";
+import { ForumInput, ForumPost, SkeletonLoader } from "../../Components";
 import ForumRight from "./ForumRight";
 import useApi from "../../hooks/useApi";
 
 const Forum = () => {
-  const { getPost, error, updateLikes } = useApi("posts");
-  const { data } = getPost;
+  const { posts, isLoading } = useApi();
 
-  if (!data) {
-    return <p>stealing...</p>;
-  }
-  console.log(data);
-
-  if (error) {
-    return <div>Error: {error.message}</div>;
+  if (!posts) {
+    return <SkeletonLoader width="100%" height="100px" />;
   }
 
   return (
@@ -30,14 +24,24 @@ const Forum = () => {
           <Box mb={5}>
             <ForumInput />
           </Box>
-          <Stack spacing={10}>
-            {data
-              .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)) // Sort data by time in descending order
-              .map((post) => (
-                <Box key={post._id}>
-                  <ForumPost post={post} updateLikes={updateLikes} />
-                </Box>
-              ))}
+          <Stack w="100%" spacing={10}>
+            {isLoading ? (
+              <SkeletonLoader
+                isCircle
+                size="100px"
+                width="100%"
+                height="100px"
+              />
+            ) : (
+              posts &&
+              posts
+                .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)) // Sort data by time in descending order
+                .map((post) => (
+                  <Box key={post._id}>
+                    <ForumPost post={post} />
+                  </Box>
+                ))
+            )}
           </Stack>
         </Stack>
       </Box>

@@ -42,7 +42,7 @@ const Profile = () => {
         <Box bg="#ffefe5" h="150px" w="100%" rounded="md" />
         <Avatar
           size="2xl"
-          name={user.firstName}
+          name={user.firstName + " " + user.lastName}
           src={""}
           position="absolute"
           top="60px"

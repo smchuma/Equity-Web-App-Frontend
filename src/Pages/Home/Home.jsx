@@ -2,7 +2,6 @@ import { Box, Flex } from "@chakra-ui/react";
 import { Post, RightBar } from "../../Components";
 import { Posts } from "../../dummyData";
 import "./Home.scss";
-import useAuth from "../../hooks/useAuth";
 
 const Home = () => {
   return (

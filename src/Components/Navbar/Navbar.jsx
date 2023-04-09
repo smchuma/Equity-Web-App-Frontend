@@ -155,7 +155,7 @@ const Navbar = () => {
                 >
                   <Avatar
                     size={"md"}
-                    name={`${user.firstName}`}
+                    name={user.firstName + " " + user.lastName}
                     src={user.profilePicture}
                     sx={{
                       border: "2px solid ",
@@ -166,7 +166,11 @@ const Navbar = () => {
                 <MenuList alignItems={"center"}>
                   <br />
                   <Center>
-                    <Avatar size={"2xl"} name={user.firstName} src={""} />
+                    <Avatar
+                      size={"2xl"}
+                      name={user.firstName + " " + user.lastName}
+                      src={""}
+                    />
                   </Center>
                   <br />
                   <Center>
