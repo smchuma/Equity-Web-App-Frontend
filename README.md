@@ -2,6 +2,10 @@
 
 # DOCUMENTATION.
 
+### TECH STACK.
+
+![Alt Text](https://github.com/smchuma/Equity-Web-App-Frontend/blob/master/TECHSTACK.png)
+
 ### NON-TECHNICAL DOCUMENTATION (How to use the application).
 
 The application, when navigated to, presents a login screen where the user is supposed to provide a username and a password to be authenticated. There are three types of users for this application.
