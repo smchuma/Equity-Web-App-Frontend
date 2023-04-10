@@ -1,70 +1,45 @@
-# Getting Started with Create React App
+# "Equity social app" - Frontend application with REACT JS
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# DOCUMENTATION.
 
-## Available Scripts
+### NON-TECHNICAL DOCUMENTATION (How to use the application).
 
-In the project directory, you can run:
+The application, when navigated to, presents a login screen where the user is supposed to provide a username and a password to be authenticated. There are three types of users for this application.
 
-### `npm start`
+1. **A user** - This is a wings to fly/ Elp scholar. 
+2. **A moderator** - This is an Equity employee tasked with posting updates and communication from Equity. They have more access than the user.
+3. **Admin** - Deals with maintenance of the app. They have access to users only and have the permissions to upgrade a user to a moderator.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+**Typically, everyone signing up on the platform is only given a user role first. Additional roles, such as a moderator priviledges from a user, are granted by the admin. This is for security purposes, for more vetting on who becomes a moderator because they basically will be incharge of all the communication to other users.**
 
-### `npm test`
+#### PERMISSIONS.
+The app follows a Role based access control (RBAC).  What each user can do on any part of the application is limited to the roles they have as shown below.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+The application is divided into five major parts as outlined in the proposal. These parts are accessible via the sidebar of the application on the left side of the app.:
+   
+   1. **The Feed** - This is where the important information from Equity is posted. 
+      
+      For a regular user/scholar:
+        1. They can only view the announcements from equity.
+        2. They can comment on the announcements.
+        3. They can like the announcements  to engage with it.
+      
+      For a moderator:
+        1. They can do all that the user does.
+        2. They additionally have access to post on the feed page. The intuition is that the moderators will be equity employees who are in charge of 
+        disseminating information to the scholars for any communication i.e. events, scholarships, internships, or any other information.
+  
+  2. **The Search** - This allows all users of the app to search for any communication, event, or users on the platform.
+  
+  3. **Forum** - unlike the feed page which is limited to only moderators, the forum is accessible to regular users to post their concerns and queries. 
+                  Scholars can post    their concerns and other users can engage with their posts by liking or proposing a solution to them
+ 
+  4. **Events** - We created a separate page for the events where all events posted by the moderators appear. These events show up in the feed as well so 
+                  users/scholars won't miss them. Scholars can join an event which will send a reminder to their email
+    
+  5. **Chapters** - This shows the current user which university chapters are available. Scholars can join a chapter, and any communication posted to the chapter
+  
+#### LIMITATIONS.
+Due to time constraints we had to scope the functionalities that we had to implement to the **Feed** and **Forum** because we felt that based on the solution we proposed, those were the components that provided most of the value. Consequently, the search, Chapters and events functionalities are not 100% done.
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
