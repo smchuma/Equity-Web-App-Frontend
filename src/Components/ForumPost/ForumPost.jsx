@@ -1,21 +1,20 @@
 import {
-  Avatar,
+  Grid,
+  GridItem,
   Box,
-  Button,
   Flex,
-  MenuList,
-  MenuItem,
-  MenuButton,
-  Stack,
+  Avatar,
   Text,
-  Textarea,
-  Menu,
+  Button,
+  IconButton,
   useColorModeValue,
 } from "@chakra-ui/react";
+
 import CommentIcon from "@mui/icons-material/Comment";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import useApi from "../../hooks/useApi";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
 import useUser from "../../hooks/useUser";
 import { useState } from "react";
@@ -83,109 +82,113 @@ const ForumPost = (post) => {
   };
 
   return (
-    <Box borderRadius={20} boxShadow={`0px 0px 4px ${boxShadowColor}`} p={3}>
-      <Flex>
-        <Stack align="center" mr="5">
+    <Box
+      w="100%"
+      textAlign="justify"
+      maxWidth="600px"
+      borderRadius={20}
+      boxShadow={`0px 0px 4px ${boxShadowColor}`}
+      p={4}
+    >
+      <Flex alignItems="center" mb={4} justify="space-between">
+        <Flex alignItems="center" gap={1}>
           <Avatar
-            size="xl"
+            size="sm"
             name={post.post.user.firstName + " " + post.post.user.lastName}
-            src=""
+            mr={2}
           />
-          <Text fontSize="sm" color="gray.500">
+          <Text fontWeight="bold">
+            {post.post.user.firstName + " " + post.post.user.lastName}
+          </Text>
+          <Text ml={2} fontSize="sm" color="gray.500">
             {timePost}
           </Text>
-        </Stack>
-        <Stack>
-          <Flex justify="space-between">
-            <Box p={3}>
-              <p>{post.post.desc}</p>
-            </Box>
-            {userId === user._id && (
-              <Text onClick={handleDelete}>Delete Post</Text>
-            )}
-          </Flex>
-          <Flex justify="space-between">
-            <Flex gap={5}>
-              <Flex>
-                <CommentIcon
-                  style={{
-                    marginRight: "5px",
-                  }}
-                />
-                <button onClick={handleCommentClick}>Comment</button>
-              </Flex>
-              <Flex align="center">
-                <ThumbUpAltIcon
-                  style={{
-                    marginRight: "5px",
-                  }}
-                />
-                <p>Like</p>
-                <div>
-                  <button onClick={handleLikeClick}>
-                    {isLiked ? "Unlike" : "Like"}
-                  </button>
-                </div>
-              </Flex>
-            </Flex>
+        </Flex>
+        <Box>
+          {userId === user._id && (
+            <Text cursor="pointer" onClick={handleDelete}>
+              <DeleteForeverIcon />
+            </Text>
+          )}
+        </Box>
+      </Flex>
+      <Text mb={4}>{post.post.desc}</Text>
 
-            <Flex align="center" gap={4}>
-              <p>{post.post.likes.length} likes</p>
-              {/* <p>12 comments</p> */}
+      <Grid templateColumns="repeat(4, 1fr)" gap={4} w="100%">
+        <GridItem w="100%" colSpan={4}>
+          <Flex alignItems="center" justify="space-between">
+            <Flex alignItems="center" gap={2}>
+              <IconButton
+                aria-label="like"
+                icon={<ThumbUpAltIcon />}
+                colorScheme={isLiked ? "blue" : "gray"}
+                onClick={handleLikeClick}
+              />
+              <Text>
+                {post.post.likes.length}{" "}
+                {post.post.likes.length === 1 ? "Like" : "Likes"}
+              </Text>
+            </Flex>
+            <Flex alignItems="center" gap={2}>
+              <IconButton
+                aria-label="comment"
+                icon={<CommentIcon />}
+                colorScheme="gray"
+                onClick={handleCommentClick}
+              />
+              <Text mr={2}>
+                {post.post.comments.length}{" "}
+                {post.post.comments.length === 1 ? "Comment" : "Comments"}
+              </Text>
             </Flex>
           </Flex>
-          {showCommentInput && (
-            <>
-              <Box as="form" p={3} onSubmit={handleCommentSubmit}>
-                <Textarea
+        </GridItem>
+        {showCommentInput && (
+          <GridItem colSpan={4}>
+            <form onSubmit={handleCommentSubmit}>
+              <Flex alignItems="center" gap={2}>
+                <Avatar
+                  size="sm"
+                  name={user.firstName + " " + user.lastName}
+                  mr={2}
+                />
+                <input
+                  type="text"
                   placeholder="Add a comment..."
                   value={comment}
                   onChange={(e) => setComment(e.target.value)}
+                  style={{
+                    border: "none",
+                    outline: "none",
+                    backgroundColor: bgColor,
+                    borderRadius: 20,
+                    padding: 10,
+                    width: "100%",
+                  }}
                 />
-                <Button mt={3} type="submit">
-                  Submit
-                </Button>
-              </Box>
-              <Box p="2" my="2">
-                {post.post.comments.map((comment) => (
-                  <Box key={comment.postId} p="2" my="2">
-                    <Stack p={2} bg={bgColor} borderRadius={20}>
-                      <Flex justify="space-between">
-                        <Flex align="center" px={2}>
-                          <Avatar
-                            size="sm"
-                            // name={
-                            //   comment.user.firstName + " " + comment.user.lastName
-                            // }
-                            src=""
-                          />
-                          <Text px={2} fontSize="sm" color="gray.500">
-                            {/* {comment.user.firstName + " " + comment.user.lastName} */}
-                            name
-                          </Text>
-                        </Flex>
-                        {comment.userId === user._id && (
-                          <Menu>
-                            <MenuButton as={Button} variant="ghost" size="sm">
-                              <MoreVertIcon />
-                            </MenuButton>
-                            <MenuList>
-                              <MenuItem>Delete</MenuItem>
-                            </MenuList>
-                          </Menu>
-                        )}
-                      </Flex>
-                      <Box p={3}>
-                        <p>{comment.comment}</p>
-                      </Box>
-                    </Stack>
-                  </Box>
-                ))}
-              </Box>
-            </>
-          )}
-        </Stack>
-      </Flex>
+              </Flex>
+            </form>
+          </GridItem>
+        )}
+        {post.post.comments.map((comment) => (
+          <GridItem colSpan={4} key={comment._id}>
+            <Flex alignItems="center" gap={2}>
+              <Avatar
+                size="sm"
+                // name={comment.user.firstName + " " + comment.user.lastName}
+                mr={2}
+              />
+              <Text fontWeight="bold">
+                {/* {comment.user.firstName + " " + comment.user.lastName} */}
+              </Text>
+              <Text ml={2} fontSize="sm" color="gray.500">
+                {getTimeDifference(comment.createdAt)}
+              </Text>
+            </Flex>
+            <Text>{comment.comment}</Text>
+          </GridItem>
+        ))}
+      </Grid>
     </Box>
   );
 };

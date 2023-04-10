@@ -13,6 +13,7 @@ const Forum = () => {
   return (
     <Flex justifyContent="center">
       <Box
+        width="100%"
         mt="50px"
         ml={{
           base: "150px",
@@ -20,11 +21,17 @@ const Forum = () => {
           lg: "0px",
         }}
       >
-        <Stack>
-          <Box mb={5}>
+        <Stack w="100%">
+          <Flex w="100%" flexDir="column" alignItems="center" mb={5}>
             <ForumInput />
-          </Box>
-          <Stack w="100%" spacing={10}>
+          </Flex>
+          <Flex
+            w="100%"
+            flexDir="column"
+            alignItems="center"
+            h="100vh"
+            gap={12}
+          >
             {isLoading ? (
               <SkeletonLoader
                 isCircle
@@ -37,12 +44,12 @@ const Forum = () => {
               posts
                 .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)) // Sort data by time in descending order
                 .map((post) => (
-                  <Box key={post._id}>
+                  <Box align="center" w="100%" key={post._id}>
                     <ForumPost post={post} />
                   </Box>
                 ))
             )}
-          </Stack>
+          </Flex>
         </Stack>
       </Box>
       <Box

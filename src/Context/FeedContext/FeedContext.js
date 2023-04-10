@@ -24,6 +24,39 @@ export const FeedReducer = (state, action) => {
       return {
         feeds: state.feeds.filter((feed) => feed._id !== action.payload),
       };
+    case "LIKE_FEED":
+      const updatedFeeds = state.feeds.map((feed) =>
+        feed._id === action.payload.postId
+          ? { ...feed, likes: [...feed.likes, action.payload.userId] }
+          : feed
+      );
+      return {
+        ...state,
+        feeds: updatedFeeds,
+      };
+    case "COMMENT_FEED":
+      const commentFeed = state.feeds.map((feed) =>
+        feed._id === action.payload.postId
+          ? {
+              ...feed,
+              comments: [
+                ...feed.comments,
+                {
+                  text: action.payload.comment,
+                  user: {
+                    firstName: action.payload.user.firstName,
+                    lastName: action.payload.user.lastName,
+                    image: action.payload.user.image,
+                  },
+                },
+              ],
+            }
+          : feed
+      );
+      return {
+        ...state,
+        posts: commentFeed,
+      };
 
     default:
       return state;
@@ -142,6 +175,85 @@ export const FeedContextProvider = ({ children }) => {
     }
   );
 
+  const deleteFeed = useMutation(
+    async (postId) => {
+      const accessToken = await refreshAccessToken();
+      const response = await fetch(`${baseUrl}/${endpointPath}/${postId}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      return response.json();
+    },
+    {
+      onSuccess: async (deletedFeed) => {
+        console.log("Post deleted successfully");
+        await refetch();
+      },
+      onError: (err) => {
+        console.log("Error deleting post");
+      },
+      // staleTime: 60000,
+    }
+  );
+  const likeFeed = useMutation(
+    async ({ postId, userId }) => {
+      const accessToken = await refreshAccessToken();
+      const response = await fetch(
+        `${baseUrl}/${endpointPath}/${postId}/like`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+          },
+          body: JSON.stringify({ userId }),
+        }
+      );
+      return response.json();
+    },
+    {
+      onSuccess: async (likedFeed) => {
+        console.log("Feed liked successfully");
+        console.log(likedFeed);
+        await refetch();
+      },
+      onError: (err) => {
+        console.log("Error liking post");
+      },
+      staleTime: 60000,
+    }
+  );
+  const commentFeed = useMutation(
+    async ({ postId, comment }) => {
+      const accessToken = await refreshAccessToken();
+      const response = await fetch(
+        `${baseUrl}/${endpointPath}/${postId}/comment`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+          },
+          body: JSON.stringify({ comment }),
+        }
+      );
+      return response.json();
+    },
+    {
+      onSuccess: async (addedComment) => {
+        console.log("Comment added successfully");
+        console.log(addedComment);
+        await refetch();
+      },
+      onError: (err) => {
+        console.log("Error adding comment");
+      },
+      staleTime: 60000,
+    }
+  );
+
   useEffect(() => {
     if (feeds) {
       dispatch({ type: "GET_FEEDS", payload: feeds });
@@ -155,6 +267,9 @@ export const FeedContextProvider = ({ children }) => {
         dispatch,
         isLoading,
         postFeed,
+        deleteFeed,
+        likeFeed,
+        commentFeed,
       }}
     >
       {children}

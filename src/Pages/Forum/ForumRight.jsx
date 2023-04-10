@@ -3,9 +3,25 @@ import React from "react";
 
 const ForumRight = () => {
   const questions = [
-    { user: "Scolarship", question: "How do I create a new post?" },
-    { user: "Internships", question: "Why is my post not showing up?" },
-    { user: "Scolarship", question: "How do I create a new post?" },
+    { user: "Scholarship", question: "When are scholarships available?" },
+    {
+      user: "Internships",
+      question: "Do you offer any internships opportunities",
+    },
+    { user: "Scholarship", question: "How do i apply for a scholarship" },
+    {
+      user: "Banking",
+      question: "Why should one get a credit card?",
+    },
+    {
+      user: "Finance",
+      question:
+        "What is the difference between a debit card and a credit card?",
+    },
+    {
+      user: "Goal Account",
+      question: "What are the benefits of a goal account?",
+    },
   ];
 
   const users = [...new Set(questions.map((q) => q.user))]; // get unique user names
@@ -14,7 +30,7 @@ const ForumRight = () => {
     "rgba(255, 255, 255, 0.2)"
   );
   return (
-    <Stack mt={5} spacing={4} py={4} px={4} borderRadius="md">
+    <Stack marginTop="120px" spacing={4} py={4} px={4} borderRadius="md">
       <Text>Most Talked about Topics</Text>
       {users.map((user) => (
         <Box key={user} boxShadow={`0px 0px 4px ${boxShadowColor}`} p={4}>

@@ -5,14 +5,30 @@ import {
   IconButton,
   Image,
   Stack,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  Button,
   Text,
+  Input,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import CommentIcon from "@mui/icons-material/Comment";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
+import useUser from "../../hooks/useUser";
+import useFeed from "../../hooks/useFeed";
+import { useState } from "react";
 
 const Post = ({ feed }) => {
+  const { user } = useUser();
+  const { deleteFeed, likeFeed, commentFeed } = useFeed();
+  const isLiked = feed.likes.includes(user._id);
+  const [comment, setComment] = useState("");
+  const [showCommentInput, setShowCommentInput] = useState(false);
+
   function getTimeDifference(timestamp) {
     const now = new Date();
     const postTime = new Date(timestamp);
@@ -41,6 +57,34 @@ const Post = ({ feed }) => {
     .charAt(0)
     .toUpperCase()}${feed.user.lastName.slice(1)}`;
 
+  const handleDelete = async () => {
+    try {
+      await deleteFeed.mutate(feed._id);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const handleLikeClick = () => {
+    if (!isLiked) {
+      likeFeed.mutate({ postId: feed._id, userId: feed.userId });
+    }
+  };
+
+  const handleCommentClick = () => {
+    setShowCommentInput(!showCommentInput);
+  };
+
+  const handleCommentSubmit = (e) => {
+    e.preventDefault();
+    commentFeed.mutate({
+      postId: feed._id,
+      comment,
+    });
+    setComment("");
+  };
+
+  const bgColor = useColorModeValue("gray.100", "gray.700");
+
   return (
     <div>
       <Stack cursor="pointer" mb={14} backgroundColor="transparent">
@@ -52,30 +96,36 @@ const Post = ({ feed }) => {
           borderBottomWidth="2px"
           borderBottomColor="gray.200"
           paddingBottom={2}
+          justify="space-between"
           p={3}
         >
-          <Box mr={4}>
-            <Avatar
-              name={feed.user.firstName + " " + feed.user.lastName}
-              src=""
-              alt="user profile"
-            />
-          </Box>
-          <Box>
-            <Text fontWeight="bold">
-              {firstName} {lastName}
-            </Text>
-            <Text fontSize="sm" color="gray.500">
-              {timePost}
-            </Text>
-          </Box>
-          <IconButton
-            icon={<MoreVertIcon />}
-            aria-label="More"
-            variant="ghost"
-            size="sm"
-            ml="auto"
-          />
+          <Flex align="center">
+            <Box mr={4}>
+              <Avatar
+                name={feed.user.firstName + " " + feed.user.lastName}
+                src=""
+                alt="user profile"
+              />
+            </Box>
+            <Box>
+              <Text fontWeight="bold">
+                {firstName} {lastName}
+              </Text>
+              <Text fontSize="sm" color="gray.500">
+                {timePost}
+              </Text>
+            </Box>
+          </Flex>
+          {feed.userId === user._id && (
+            <Menu>
+              <MenuButton as={Button} variant="ghost" size="sm">
+                <MoreVertIcon />
+              </MenuButton>
+              <MenuList>
+                <MenuItem onClick={handleDelete}> Delete</MenuItem>
+              </MenuList>
+            </Menu>
+          )}
         </Flex>
         <Box>
           <Text px={4} fontSize="sm" textAlign="justify">
@@ -112,13 +162,13 @@ const Post = ({ feed }) => {
                 marginRight: "5px",
               }}
             />
-            <Text fontSize="sm" color="blackAlpha.800">
-              {/* {like} people like it */}
+            <Text fontSize="sm" color="blue.500">
+              {feed.likes.length} people like it
             </Text>
           </Box>
           <Box mr={5}>
-            <Text fontSize="sm" color="blackAlpha.800">
-              {/* {comment} comments */}
+            <Text fontSize="sm" color="brand.secondary">
+              {feed.comments.length} comments
             </Text>
           </Box>
         </Flex>
@@ -136,9 +186,11 @@ const Post = ({ feed }) => {
                 icon={<ThumbUpIcon />}
                 color="blue.600"
                 size="lg"
+                onClick={handleLikeClick}
+                mr={2}
               />
               <Text fontSize="lg" color="gray.500">
-                Like
+                <button onClick={handleLikeClick}>Like</button>
               </Text>
             </Flex>
           </Box>
@@ -149,8 +201,10 @@ const Post = ({ feed }) => {
                 icon={<CommentIcon />}
                 color="black.600"
                 size="lg"
+                mr={2}
+                onClick={handleCommentClick}
               />
-              <Text fontSize="lg" color="gray.500">
+              <Text onClick={handleCommentClick} fontSize="lg" color="gray.500">
                 Comment
               </Text>
             </Flex>
@@ -162,6 +216,7 @@ const Post = ({ feed }) => {
                 icon={<BookmarkIcon />}
                 color="blue.600"
                 size="lg"
+                mr={2}
               />
               <Text fontSize="lg" color="gray.500">
                 Save
@@ -169,6 +224,68 @@ const Post = ({ feed }) => {
             </Flex>
           </Box>
         </Flex>
+        {showCommentInput && (
+          <>
+            <Box mt={4}>
+              <form onSubmit={handleCommentSubmit}>
+                <Flex align="center">
+                  <Input
+                    type="text"
+                    placeholder="Add a comment..."
+                    value={comment}
+                    onChange={(e) => setComment(e.target.value)}
+                    mr={2}
+                  />
+                  <Button
+                    type="submit"
+                    colorScheme="blue"
+                    size="sm"
+                    variant="solid"
+                    mr={2}
+                  >
+                    Post
+                  </Button>
+                </Flex>
+              </form>
+            </Box>
+            <Box p="2" my="2">
+              {feed.comments.map((comment) => (
+                <Box key={comment.itemId} p="2" my="2">
+                  <Stack p={2} bg={bgColor} borderRadius={20}>
+                    <Flex justify="space-between">
+                      <Flex align="center" px={2}>
+                        <Avatar
+                          size="sm"
+                          // name={
+                          //   comment.user.firstName + " " + comment.user.lastName
+                          // }
+                          src=""
+                        />
+                        <Text px={2} fontSize="sm" color="gray.500">
+                          {/* {comment.user.firstName + " " + comment.user.lastName} */}
+                          name
+                        </Text>
+                      </Flex>
+                      {comment.userId === user._id && (
+                        <Menu>
+                          <MenuButton as={Button} variant="ghost" size="sm">
+                            <MoreVertIcon />
+                          </MenuButton>
+                          <MenuList>
+                            <MenuItem>Delete</MenuItem>
+                          </MenuList>
+                        </Menu>
+                      )}
+                    </Flex>
+                    <Box p={3}>
+                      <p>{comment.comment}</p>
+                    </Box>
+                  </Stack>
+                </Box>
+              ))}
+            </Box>
+          </>
+        )}
       </Stack>
     </div>
   );
