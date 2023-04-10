@@ -82,8 +82,6 @@ const ForumPost = (post) => {
     setComment("");
   };
 
-  console.log("post", post);
-
   return (
     <Box borderRadius={20} boxShadow={`0px 0px 4px ${boxShadowColor}`} p={3}>
       <Flex>

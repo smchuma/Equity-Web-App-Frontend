@@ -2,13 +2,14 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter as Router } from "react-router-dom";
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
+import { UserContextProvider } from "./Context/UserContext/UserContext";
+import { AuthContextProvider } from "./Context/Auth/AuthContextProvider";
+import { ForumContextProvider } from "./Context/ForumContext/ForumContext";
+import { FeedContextProvider } from "./Context/FeedContext/FeedContext";
+import { QueryClient, QueryClientProvider } from "react-query";
 import { ProSidebarProvider } from "react-pro-sidebar";
 import { colors } from "./config/theme";
 import App from "./App";
-import { UserContextProvider } from "./Context/UserContext/UserContext";
-import { AuthContextProvider } from "./Context/Auth/AuthContextProvider";
-import { QueryClient, QueryClientProvider } from "react-query";
-import { ForumContextProvider } from "./Context/ForumContext/ForumContext";
 
 const queryClient = new QueryClient();
 
@@ -59,9 +60,11 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <ProSidebarProvider>
             <AuthContextProvider>
               <UserContextProvider>
-                <ForumContextProvider>
-                  <App />
-                </ForumContextProvider>
+                <FeedContextProvider>
+                  <ForumContextProvider>
+                    <App />
+                  </ForumContextProvider>
+                </FeedContextProvider>
               </UserContextProvider>
             </AuthContextProvider>
           </ProSidebarProvider>

@@ -1,7 +1,7 @@
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { Events, Groups, Home, Forum, ProfilePage, ChatsPage } from "./Pages";
 import { UserEvents, About, Badges, Chapters, Inquiries } from "./Sections";
-import { Login, SignUp, RequireAuth } from "./Components";
+import { Login, SignUp, RequireAuth, Page404 } from "./Components";
 import "./App.scss";
 
 import { Layout } from "./Components";
@@ -16,8 +16,8 @@ const App = () => {
         <Route path="/signup" element={<SignUp />} />
 
         {/* private routes */}
-        <Route path="/" element={<Layout />}>
-          <Route element={<RequireAuth />}>
+        <Route element={<RequireAuth />}>
+          <Route path="/" element={<Layout />}>
             <Route path="/" element={<Home />} />
             <Route path="/profile" element={<ProfilePage />}>
               <Route path="about" element={<About />} />
@@ -32,7 +32,7 @@ const App = () => {
             <Route path="/chats" element={<ChatsPage />} />
           </Route>
         </Route>
-        <Route path="*" element={<Navigate to="/" />} />
+        <Route path="*" element={<Page404 />} />
       </Routes>
     </div>
   );

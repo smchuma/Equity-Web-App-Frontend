@@ -25,7 +25,7 @@ import { MessageModal, NotificationModal } from "../../Modals";
 import useUser from "../../hooks/useUser";
 import MenuIcon from "@mui/icons-material/Menu";
 import "./Navbar.scss";
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useState } from "react";
 import HamburgerMenu from "../HamburgerMenu/HamburgerMenu";
 import useAuth from "../../hooks/useAuth";
@@ -36,9 +36,8 @@ const Navbar = () => {
   const { user } = useUser();
   const { logout } = useAuth();
 
-  const signOut = async () => {
-    await logout();
-    Navigate("/login");
+  const signOut = () => {
+    logout();
   };
 
   const handleNotificationClick = () => {
@@ -60,6 +59,7 @@ const Navbar = () => {
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [placement, setPlacement] = useState("left");
+
   return (
     <>
       <Box
