@@ -1,4 +1,4 @@
-# "Equity social app" - Frontend application with REACT JS
+# "Equity Community app" - Frontend application with REACT JS
 
 # DOCUMENTATION.
 
