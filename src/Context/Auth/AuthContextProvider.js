@@ -45,7 +45,7 @@ export const AuthContextProvider = ({ children }) => {
 
   const logout = async () => {
     try {
-      await fetch("http://localhost:3500/logout", {
+      await fetch("https://equity-backend.blackmoss-55678a4d.westus2.azurecontainerapps.io/logout", {
         method: "POST",
         credentials: "include",
       });

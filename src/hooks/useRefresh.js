@@ -5,7 +5,7 @@ const useRefreshToken = () => {
   const { dispatch } = useAuth();
 
   const refresh = async () => {
-    const response = await axios.get("http://localhost:3500/refresh", {
+    const response = await axios.get("https://equity-backend.blackmoss-55678a4d.westus2.azurecontainerapps.io/refresh", {
       withCredentials: true,
     });
     // const accessToken = response?.data?.accessToken;

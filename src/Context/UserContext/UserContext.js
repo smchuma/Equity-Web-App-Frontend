@@ -19,7 +19,7 @@ export const UserContextProvider = ({ children, fetchUser = true }) => {
     "user",
     async () => {
       const accessToken = await refreshAccessToken();
-      const { data } = await axios.get(`http://localhost:3500/user/${userId}`, {
+      const { data } = await axios.get(`https://equity-backend.blackmoss-55678a4d.westus2.azurecontainerapps.io/user/${userId}`, {
         headers: { Authorization: `Bearer ${accessToken}` },
       });
       return data;
