@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASEURL = "http://localhost:3500";
+const BASEURL = "https://equity-backend.blackmoss-55678a4d.westus2.azurecontainerapps.io";
 
 const axiosInstance = axios.create({
   baseURL: BASEURL,
