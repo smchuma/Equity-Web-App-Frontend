@@ -3,7 +3,6 @@ import {
   Button,
   Flex,
   Input,
-  Textarea,
   useColorModeValue,
 } from "@chakra-ui/react";
 import { useState } from "react";

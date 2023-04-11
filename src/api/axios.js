@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASEURL = "https://equity-backend.blackmoss-55678a4d.westus2.azurecontainerapps.io";
+const BASEURL = "https://equity-backend.happyground-0da80d3a.westus2.azurecontainerapps.io";
 
 const axiosInstance = axios.create({
   baseURL: BASEURL,
@@ -13,3 +13,4 @@ const axiosPrivate = axios.create({
 });
 
 export { axiosInstance as default, axiosPrivate };
+

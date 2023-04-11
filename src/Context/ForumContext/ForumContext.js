@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useQuery, useMutation } from "react-query";
 import useRefreshToken from "../../hooks/useRefresh";
 
-const baseUrl = "https://equity-backend.blackmoss-55678a4d.westus2.azurecontainerapps.io";
+const baseUrl = "https://equity-backend.happyground-0da80d3a.westus2.azurecontainerapps.io";
 const endpointPath = "posts";
 
 const ForumContext = createContext();

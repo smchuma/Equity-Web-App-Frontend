@@ -5,14 +5,14 @@ import {
   Flex,
   Avatar,
   Text,
-  Button,
+
   IconButton,
   useColorModeValue,
 } from "@chakra-ui/react";
 
 import CommentIcon from "@mui/icons-material/Comment";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
+
 import useApi from "../../hooks/useApi";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
