@@ -45,7 +45,7 @@ export const AuthContextProvider = ({ children }) => {
 
   const logout = async () => {
     try {
-      await fetch("https://equity-backend.happyground-0da80d3a.westus2.azurecontainerapps.io/logout", {
+      await fetch("https://equity-backend.bravewave-974a5699.westus2.azurecontainerapps.io/logout", {
         method: "POST",
         credentials: "include",
       });

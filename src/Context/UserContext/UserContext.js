@@ -19,7 +19,7 @@ export const UserContextProvider = ({ children, fetchUser = true }) => {
     "user",
     async () => {
       const accessToken = await refreshAccessToken();
-      const { data } = await axios.get(`https://equity-backend.happyground-0da80d3a.westus2.azurecontainerapps.io/user/${userId}`, {
+      const { data } = await axios.get(`https://equity-backend.bravewave-974a5699.westus2.azurecontainerapps.io/user/${userId}`, {
         headers: { Authorization: `Bearer ${accessToken}` },
       });
       return data;

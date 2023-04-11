@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASEURL = "https://equity-backend.happyground-0da80d3a.westus2.azurecontainerapps.io";
+const BASEURL = "https://equity-backend.bravewave-974a5699.westus2.azurecontainerapps.io";
 
 const axiosInstance = axios.create({
   baseURL: BASEURL,
