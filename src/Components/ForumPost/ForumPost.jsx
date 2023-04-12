@@ -25,7 +25,7 @@ const ForumPost = (post) => {
   const { deletePost, likePost, addComment } = useApi();
   const userId = post.post.userId;
   const { user } = useUser();
-  const isLiked = post.post.likes.includes(user._id);
+  // const isLiked = post.post.likes.includes(user._id);
 
   const boxShadowColor = useColorModeValue(
     "rgba(0, 0, 0, 0.2)",
@@ -170,24 +170,20 @@ const ForumPost = (post) => {
             </form>
           </GridItem>
         )}
-        {post.post.comments.map((comment) => (
-          <GridItem colSpan={4} key={comment._id}>
-            <Flex alignItems="center" gap={2}>
-              <Avatar
-                size="sm"
-                // name={comment.user.firstName + " " + comment.user.lastName}
-                mr={2}
-              />
-              <Text fontWeight="bold">
-                {/* {comment.user.firstName + " " + comment.user.lastName} */}
-              </Text>
-              <Text ml={2} fontSize="sm" color="gray.500">
-                {getTimeDifference(comment.createdAt)}
-              </Text>
-            </Flex>
-            <Text>{comment.comment}</Text>
-          </GridItem>
-        ))}
+       {comment.userId === user._id && (
+                        <Menu>
+                          <MenuButton as={Button} variant="ghost" size="sm">
+                            <MoreVertIcon />
+                          </MenuButton>
+                          <MenuList>
+                            <MenuItem>Delete</MenuItem>
+                          </MenuList>
+                        </Menu>
+                      )}
+                    </Flex>
+                    <Box p={3}>
+                      <p>{comment.comment}</p>
+                    </Box>
       </Grid>
     </Box>
   );
