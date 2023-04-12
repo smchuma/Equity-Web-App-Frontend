@@ -29,7 +29,7 @@ const ForumPost = (post) => {
   const { deletePost, likePost, addComment } = useApi();
   const userId = post.post.userId;
   const { user } = useUser();
-  const isLiked = post.post.likes
+  const isLiked = post.post.likes.includes(user._id);
 
   const boxShadowColor = useColorModeValue(
     "rgba(0, 0, 0, 0.2)",
