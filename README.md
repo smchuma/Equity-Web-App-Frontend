@@ -30,7 +30,7 @@ The application is divided into five major parts as outlined in the proposal. Th
         2. They can comment on the announcements.
         3. They can like the announcements  to engage with it.
       
-      For a moderator:
+      For a moderator: 
         1. They can do all that the user does.
         2. They additionally have access to post on the feed page. The intuition is that the moderators will be equity employees who are in charge of 
         disseminating information to the scholars for any communication i.e. events, scholarships, internships, or any other information.
@@ -47,4 +47,8 @@ The application is divided into five major parts as outlined in the proposal. Th
   
 #### LIMITATIONS.
 Due to time constraints we had to scope the functionalities that we had to implement to the **Feed** and **Forum** because we felt that based on the solution we proposed, those were the components that provided most of the value. Consequently, the search, Chapters and events functionalities are not 100% done.
+
+## Since moderators can only be added by the admins, please use the following credentials to sign in as the moderator:
+email:monica@gmail.com
+pass: Samoraspp123
 
