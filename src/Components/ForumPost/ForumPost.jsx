@@ -10,7 +10,7 @@ import {
   MenuList,
   MenuButton,
   Button,
-  Menuitem,
+  MenuItem,
   useColorModeValue,
 } from "@chakra-ui/react";
 
@@ -29,6 +29,7 @@ const ForumPost = (post) => {
   const { deletePost, likePost, addComment } = useApi();
   const userId = post.post.userId;
   const { user } = useUser();
+  const isLiked = feed.likes.includes(user._id);
 
 
   const boxShadowColor = useColorModeValue(
