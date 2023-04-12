@@ -5,8 +5,12 @@ import {
   Flex,
   Avatar,
   Text,
-
   IconButton,
+  Menu,
+  MenuList,
+  MenuButton,
+  Button,
+  Menuitem,
   useColorModeValue,
 } from "@chakra-ui/react";
 
@@ -15,7 +19,7 @@ import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 
 import useApi from "../../hooks/useApi";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 import useUser from "../../hooks/useUser";
 import { useState } from "react";
 
@@ -25,7 +29,7 @@ const ForumPost = (post) => {
   const { deletePost, likePost, addComment } = useApi();
   const userId = post.post.userId;
   const { user } = useUser();
-  // const isLiked = post.post.likes.includes(user._id);
+
 
   const boxShadowColor = useColorModeValue(
     "rgba(0, 0, 0, 0.2)",
@@ -121,7 +125,7 @@ const ForumPost = (post) => {
               <IconButton
                 aria-label="like"
                 icon={<ThumbUpAltIcon />}
-                colorScheme={isLiked ? "blue" : "gray"}
+                colorScheme="blue"
                 onClick={handleLikeClick}
               />
               <Text>
