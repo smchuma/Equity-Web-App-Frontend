@@ -180,7 +180,7 @@ const ForumPost = (post) => {
                           </MenuList>
                         </Menu>
                       )}
-                    </Flex>
+                  
                     <Box p={3}>
                       <p>{comment.comment}</p>
                     </Box>
