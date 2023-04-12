@@ -5,17 +5,21 @@ import {
   Flex,
   Avatar,
   Text,
-  Button,
   IconButton,
+  Menu,
+  MenuList,
+  MenuButton,
+  Button,
+  MenuItem,
   useColorModeValue,
 } from "@chakra-ui/react";
 
 import CommentIcon from "@mui/icons-material/Comment";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
+
 import useApi from "../../hooks/useApi";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 import useUser from "../../hooks/useUser";
 import { useState } from "react";
 
@@ -121,7 +125,7 @@ const ForumPost = (post) => {
               <IconButton
                 aria-label="like"
                 icon={<ThumbUpAltIcon />}
-                colorScheme={isLiked ? "blue" : "gray"}
+                colorScheme="blue"
                 onClick={handleLikeClick}
               />
               <Text>
@@ -170,24 +174,20 @@ const ForumPost = (post) => {
             </form>
           </GridItem>
         )}
-        {post.post.comments.map((comment) => (
-          <GridItem colSpan={4} key={comment._id}>
-            <Flex alignItems="center" gap={2}>
-              <Avatar
-                size="sm"
-                // name={comment.user.firstName + " " + comment.user.lastName}
-                mr={2}
-              />
-              <Text fontWeight="bold">
-                {/* {comment.user.firstName + " " + comment.user.lastName} */}
-              </Text>
-              <Text ml={2} fontSize="sm" color="gray.500">
-                {getTimeDifference(comment.createdAt)}
-              </Text>
-            </Flex>
-            <Text>{comment.comment}</Text>
-          </GridItem>
-        ))}
+       {comment.userId === user._id && (
+                        <Menu>
+                          <MenuButton as={Button} variant="ghost" size="sm">
+                            <MoreVertIcon />
+                          </MenuButton>
+                          <MenuList>
+                            <MenuItem>Delete</MenuItem>
+                          </MenuList>
+                        </Menu>
+                      )}
+                  
+                    <Box p={3}>
+                      <p>{comment.comment}</p>
+                    </Box>
       </Grid>
     </Box>
   );

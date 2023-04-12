@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASEURL = "http://localhost:3500";
+const BASEURL = "https://equity-backend.bravewave-974a5699.westus2.azurecontainerapps.io";
 
 const axiosInstance = axios.create({
   baseURL: BASEURL,
@@ -13,3 +13,4 @@ const axiosPrivate = axios.create({
 });
 
 export { axiosInstance as default, axiosPrivate };
+

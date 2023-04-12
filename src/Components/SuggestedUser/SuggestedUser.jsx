@@ -4,19 +4,19 @@ import React from "react";
 const SuggestedUser = ({ isOnline }) => {
   const users = [
     {
-      name: "Avicii",
+      name: "Brackly Murunga",
       image: "",
     },
     {
-      name: "Taylor Swift",
+      name: "Samora mchuma",
       image: "",
     },
     {
-      name: "Justin Bieber",
+      name: "Mary Pendo",
       image: "",
     },
     {
-      name: "Selena Gomez",
+      name: "Juma Kaseja",
       image: "",
     },
   ];

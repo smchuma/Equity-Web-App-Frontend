@@ -2,7 +2,7 @@
   "name": "front",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:3500/",
+  "proxy": "https://equity-backend.bravewave-974a5699.westus2.azurecontainerapps.io/",
   "dependencies": {
     "@chakra-ui/react": "^2.5.3",
     "@emotion/react": "^11.10.6",
