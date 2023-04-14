@@ -50,5 +50,5 @@ Due to time constraints we had to scope the functionalities that we had to imple
 
 ## Since moderators can only be added by the admins, please use the following credentials to sign in as the moderator:
 email:monica@gmail.com
-pass: Samoraspp123
+pass: supersecretpass
 
