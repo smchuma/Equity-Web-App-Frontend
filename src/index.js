@@ -7,7 +7,7 @@ import { AuthContextProvider } from "./Context/Auth/AuthContextProvider";
 import { ForumContextProvider } from "./Context/ForumContext/ForumContext";
 import { FeedContextProvider } from "./Context/FeedContext/FeedContext";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { ProSidebarProvider } from "react-pro-sidebar";
+
 import { colors } from "./config/theme";
 import App from "./App";
 
@@ -57,17 +57,15 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <Router>
       <QueryClientProvider client={queryClient}>
         <ChakraProvider theme={theme}>
-          <ProSidebarProvider>
-            <AuthContextProvider>
-              <UserContextProvider>
-                <FeedContextProvider>
-                  <ForumContextProvider>
-                    <App />
-                  </ForumContextProvider>
-                </FeedContextProvider>
-              </UserContextProvider>
-            </AuthContextProvider>
-          </ProSidebarProvider>
+          <AuthContextProvider>
+            <UserContextProvider>
+              <FeedContextProvider>
+                <ForumContextProvider>
+                  <App />
+                </ForumContextProvider>
+              </FeedContextProvider>
+            </UserContextProvider>
+          </AuthContextProvider>
         </ChakraProvider>
       </QueryClientProvider>
     </Router>

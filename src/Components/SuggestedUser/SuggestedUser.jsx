@@ -1,40 +1,32 @@
 import { Avatar, AvatarBadge, Box, Stack, Text } from "@chakra-ui/react";
 import React from "react";
+import useUser from "../../hooks/useUser";
 
 const SuggestedUser = ({ isOnline }) => {
-  const users = [
-    {
-      name: "Brackly Murunga",
-      image: "",
-    },
-    {
-      name: "Samora mchuma",
-      image: "",
-    },
-    {
-      name: "Mary Pendo",
-      image: "",
-    },
-    {
-      name: "Juma Kaseja",
-      image: "",
-    },
-  ];
+  const { user, allUsers } = useUser();
+  console.log("allUsers", allUsers);
+
+  const filteredUsers = allUsers.filter((allUser) => allUser._id !== user._id);
+
   return (
     <>
-      <Box overflowY="scroll" maxHeight="300px" overflow="hidden">
-        {users.map((user) => (
+      <Box>
+        {filteredUsers.map((user) => (
           <Stack
-            key={user.name}
+            key={user._id}
             direction="row"
             spacing={4}
             align="center"
             mb={10}
           >
-            <Avatar size="md" name={user.name} src={user.image}>
+            <Avatar
+              size="md"
+              name={user.firstName + " " + user.lastName}
+              src=""
+            >
               {isOnline && <AvatarBadge boxSize="1em" bg="green.500" />}
             </Avatar>
-            <Text>{user.name}</Text>
+            <Text>{user.firstName + " " + user.lastName}</Text>
           </Stack>
         ))}
       </Box>

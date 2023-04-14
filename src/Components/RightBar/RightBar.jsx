@@ -1,7 +1,6 @@
 import { Box, Stack, Text } from "@chakra-ui/react";
 import React from "react";
 import SuggestedUser from "../SuggestedUser/SuggestedUser";
-import SuggestedGroup from "../SuggestedGroup/SuggestedGroup";
 
 const RightBar = () => {
   const isOnline = true;
@@ -10,32 +9,19 @@ const RightBar = () => {
       <Text
         fontSize="xl"
         fontWeight="500"
-        p="4"
+        p="3"
         borderRadius="20px"
         color="brand.primary"
         borderWidth="2px"
         borderColor="gray.100"
         bg="#ffefe5"
+        mb={5}
+        textAlign="left"
       >
-        Online Friends
+        Suggested scholars
       </Text>
-      <Box flex={1}>
+      <Box flex={1} w="100%" display={{ base: "none", lg: "block" }}>
         <SuggestedUser isOnline={isOnline} />
-      </Box>
-      <Text
-        fontSize="xl"
-        fontWeight="500"
-        p="4"
-        borderRadius="20px"
-        color="brand.primary"
-        borderWidth="2px"
-        borderColor="gray.100"
-        bg="#ffefe5"
-      >
-        Groups
-      </Text>
-      <Box flex={1}>
-        <SuggestedGroup isOnline={isOnline} />
       </Box>
     </Stack>
   );

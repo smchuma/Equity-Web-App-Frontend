@@ -11,6 +11,8 @@ import {
   MenuButton,
   Button,
   MenuItem,
+  Stack,
+  Input,
   useColorModeValue,
 } from "@chakra-ui/react";
 
@@ -125,7 +127,9 @@ const ForumPost = (post) => {
               <IconButton
                 aria-label="like"
                 icon={<ThumbUpAltIcon />}
-                colorScheme="blue"
+                colorScheme={
+                  isLiked ? (user._id === userId ? "green" : "blue") : "gray"
+                }
                 onClick={handleLikeClick}
               />
               <Text>
@@ -150,44 +154,70 @@ const ForumPost = (post) => {
         {showCommentInput && (
           <GridItem colSpan={4}>
             <form onSubmit={handleCommentSubmit}>
-              <Flex alignItems="center" gap={2}>
-                <Avatar
-                  size="sm"
-                  name={user.firstName + " " + user.lastName}
-                  mr={2}
-                />
-                <input
-                  type="text"
-                  placeholder="Add a comment..."
-                  value={comment}
-                  onChange={(e) => setComment(e.target.value)}
-                  style={{
-                    border: "none",
-                    outline: "none",
-                    backgroundColor: bgColor,
-                    borderRadius: 20,
-                    padding: 10,
-                    width: "100%",
-                  }}
-                />
+              <Flex alignItems="center" flexDir="column" gap={2}>
+                <Flex align="center" w="100%" mt={4}>
+                  <Avatar
+                    size="sm"
+                    name={user.firstName + " " + user.lastName}
+                    mr={2}
+                  />
+                  <Input
+                    type="text"
+                    bg={bgColor}
+                    p={5}
+                    placeholder="Add a comment..."
+                    value={comment}
+                    onChange={(e) => setComment(e.target.value)}
+                    style={{
+                      border: "none",
+                      outline: "none",
+                      backgroundColor: bgColor,
+                      borderRadius: 20,
+
+                      width: "100%",
+                    }}
+                  />
+                </Flex>
+                <Box w="100%" mt={5}>
+                  {post.post.comments.map((comment) => (
+                    <Box key={comment.itemId} p="2" my="2">
+                      <Stack p={2} bg={bgColor} borderRadius={20}>
+                        <Flex justify="space-between">
+                          <Flex align="center" px={2}>
+                            <Avatar
+                              size="sm"
+                              // name={
+                              //   comment.user.firstName + " " + comment.user.lastName
+                              // }
+                              src=""
+                            />
+                            <Text px={2} fontSize="sm" color="gray.500">
+                              {/* {comment.user.firstName + " " + comment.user.lastName} */}
+                              name
+                            </Text>
+                          </Flex>
+                          {comment.userId === user._id && (
+                            <Menu>
+                              <MenuButton as={Button} variant="ghost" size="sm">
+                                <MoreVertIcon />
+                              </MenuButton>
+                              <MenuList>
+                                <MenuItem>Delete</MenuItem>
+                              </MenuList>
+                            </Menu>
+                          )}
+                        </Flex>
+                        <Box p={3}>
+                          <p>{comment.comment}</p>
+                        </Box>
+                      </Stack>
+                    </Box>
+                  ))}
+                </Box>
               </Flex>
             </form>
           </GridItem>
         )}
-       {comment.userId === user._id && (
-                        <Menu>
-                          <MenuButton as={Button} variant="ghost" size="sm">
-                            <MoreVertIcon />
-                          </MenuButton>
-                          <MenuList>
-                            <MenuItem>Delete</MenuItem>
-                          </MenuList>
-                        </Menu>
-                      )}
-                  
-                    <Box p={3}>
-                      <p>{comment.comment}</p>
-                    </Box>
       </Grid>
     </Box>
   );

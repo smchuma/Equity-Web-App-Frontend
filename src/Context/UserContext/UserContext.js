@@ -19,9 +19,12 @@ export const UserContextProvider = ({ children, fetchUser = true }) => {
     "user",
     async () => {
       const accessToken = await refreshAccessToken();
-      const { data } = await axios.get(`https://equity-backend.bravewave-974a5699.westus2.azurecontainerapps.io/user/${userId}`, {
-        headers: { Authorization: `Bearer ${accessToken}` },
-      });
+      const { data } = await axios.get(
+        `https://equity-backend.bravewave-974a5699.westus2.azurecontainerapps.io/user/${userId}`,
+        {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        }
+      );
       return data;
     },
     {
@@ -37,6 +40,16 @@ export const UserContextProvider = ({ children, fetchUser = true }) => {
       },
     }
   );
+  const { data: allUsers } = useQuery("Allusers", async () => {
+    const accessToken = await refreshAccessToken();
+    const { data } = await axios.get(
+      `https://equity-backend.bravewave-974a5699.westus2.azurecontainerapps.io/user/`,
+      {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      }
+    );
+    return data;
+  });
 
   if (isLoading) return <div>Loading...</div>;
   if (isError) {
@@ -47,6 +60,7 @@ export const UserContextProvider = ({ children, fetchUser = true }) => {
     <UserContext.Provider
       value={{
         user,
+        allUsers,
       }}
     >
       {children}
