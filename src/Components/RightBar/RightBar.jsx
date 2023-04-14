@@ -10,11 +10,8 @@ const RightBar = () => {
         fontSize="xl"
         fontWeight="500"
         p="3"
-        borderRadius="20px"
-        color="brand.primary"
-        borderWidth="2px"
+        color="brand.secondary"
         borderColor="gray.100"
-        bg="#ffefe5"
         mb={5}
         textAlign="left"
       >

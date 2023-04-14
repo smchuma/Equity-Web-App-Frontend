@@ -3,7 +3,8 @@ import { useEffect } from "react";
 import { useQuery, useMutation } from "react-query";
 import useRefreshToken from "../../hooks/useRefresh";
 
-const baseUrl = "https://equity-backend.bravewave-974a5699.westus2.azurecontainerapps.io";
+const baseUrl =
+  "https://equity-backend.bravewave-974a5699.westus2.azurecontainerapps.io";
 const endpointPath = "announcements";
 
 const FeedContext = createContext();

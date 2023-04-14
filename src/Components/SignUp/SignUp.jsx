@@ -10,16 +10,16 @@ import {
 import React, { useState } from "react";
 import GoogleIcon from "@mui/icons-material/Google";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import TextField from "../Formik/TextField";
+import useAuth from "../../hooks/useAuth";
+import { BASEURL } from "../../API_URL/api";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import TextField from "../Formik/TextField";
+import axios from "axios";
 import "./SignUp.scss";
-import axios from "../../api/axios";
-import useAuth from "../../hooks/useAuth";
 
 const SignUp = () => {
   const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
-  const REGISTER_URL = "/register";
 
   const [errMsg, setErrMsg] = useState("");
   const [loading, setLoading] = useState(false);
@@ -34,7 +34,7 @@ const SignUp = () => {
 
     try {
       const response = await axios.post(
-        REGISTER_URL,
+        `${BASEURL}/register`,
         JSON.stringify({ firstName, lastName, email, password }),
         {
           headers: { "Content-Type": "application/json" },

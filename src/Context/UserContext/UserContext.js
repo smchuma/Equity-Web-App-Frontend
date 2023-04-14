@@ -3,6 +3,7 @@ import { useQuery } from "react-query";
 import axios from "axios";
 import useAuth from "../../hooks/useAuth";
 import useRefreshToken from "../../hooks/useRefresh";
+import SkeletonLoadingComponent from "../../Components/Loader/SkeletonLoadingComponent";
 
 const UserContext = createContext();
 
@@ -29,9 +30,7 @@ export const UserContextProvider = ({ children, fetchUser = true }) => {
     },
     {
       enabled: fetchUser && !!state.accessToken,
-      onSuccess: () => {
-        console.log("User data fetched");
-      },
+      onSuccess: () => {},
       onError: (error) => {
         if (error.response?.status === 403 || error.response?.status === 401) {
           console.log("Token expired");
@@ -51,7 +50,7 @@ export const UserContextProvider = ({ children, fetchUser = true }) => {
     return data;
   });
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <SkeletonLoadingComponent />;
   if (isError) {
     return <div>Error fetching user data</div>;
   }

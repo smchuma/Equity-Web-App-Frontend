@@ -1,23 +1,31 @@
 import React from "react";
 import { Box, Flex, Text, Button, Input } from "@chakra-ui/react";
+import { ENSERSURL } from "../../../API_URL/api";
 import { useState } from "react";
 import { useRef } from "react";
 import { useEffect } from "react";
 
 const ChatEngine = () => {
   const [messages, setMessages] = useState([]);
-  const [inputValue, setInputValue] = useState("");
+  const [question, setQuestion] = useState("");
   const chatBodyRef = useRef(null);
-
-  const handleSend = () => {
-    if (inputValue) {
-      setMessages([...messages, { text: inputValue, sender: "user" }]);
-      // Here you would send the message to the server and receive a response from the server.
-      // For demo purposes, we'll simulate a response from the server after a delay.
-      setTimeout(() => {
-        setMessages([...messages, { text: "Hello there!", sender: "bot" }]);
-      }, 1000);
-      setInputValue("");
+  const handleSend = async () => {
+    const newMessage = { question, answer: null };
+    setMessages([...messages, newMessage]);
+    try {
+      const response = await fetch(ENSERSURL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ query: question }),
+      });
+      const data = await response.json();
+      newMessage.answer = data.answer;
+      setMessages([...messages, newMessage]);
+      setQuestion("");
+    } catch (error) {
+      console.error(error);
     }
   };
   const handleWheel = (event) => {
@@ -48,12 +56,10 @@ const ChatEngine = () => {
             alt="chat"
             width="75px"
             height="75px"
-            borderRadius="50%"
-            boxShadow="0px 0px 16px 6px rgba(0, 0, 0, 0.33)"
           />
 
           <Text fontSize="lg" fontWeight="bold" color="white">
-            Ask Me Anything <br /> about Equity
+            Ask Me Anything <br /> about Equity Leaders Program.
           </Text>
         </Flex>
       </Box>
@@ -92,43 +98,46 @@ const ChatEngine = () => {
               background: "transparent",
             },
           }}
+          style={{ paddingBottom: "60px" }}
         >
-          {messages.map((message, index) => (
+          {messages.map((m, index) => (
             <Flex
               key={index}
-              justifyContent={
-                message.sender === "user" ? "flex-end" : "flex-start"
-              }
+              color="white"
+              p={2}
+              borderRadius="md"
+              mb={2}
+              flexDirection={m.question ? "column" : "column-reverse"}
+              alignItems={m.question ? "flex-end" : "flex-start"}
+              justifyContent={m.question ? "flex-end" : "flex-start"}
             >
-              <Box
-                maxW="80%"
-                bg={message.sender === "user" ? "blue.500" : "gray.200"}
-                color={message.sender === "user" ? "white" : "black"}
-                px={3}
-                py={2}
-                mb="10px"
-                borderRadius={8}
-                flexGrow={
-                  message.sender === "user"
-                    ? 0
-                    : message.text.length > 50
-                    ? 1
-                    : 0
-                }
+              <Text
+                fontSize="sm"
+                fontWeight="bold"
+                color="white"
+                mb={m.question ? 2 : 0}
+                bg="gray"
+                p="5px 10px"
+                borderRadius="10px"
+                // mr={260}
               >
-                {message.text}
-              </Box>
+                {m.question}
+              </Text>
+              <Text bg="brand.primary" p="5px 10px" borderRadius="10px">
+                {m.answer}
+              </Text>
             </Flex>
           ))}
         </Box>
       </Box>
+
       <Box py={2} px={4}>
         {/* Chat input */}
         <Flex mt="auto">
           <Input
             placeholder="Type your message..."
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
+            value={question}
+            onChange={(e) => setQuestion(e.target.value)}
             mr={2}
             flex="1"
             onKeyDown={(e) => {

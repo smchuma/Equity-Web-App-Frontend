@@ -32,7 +32,7 @@ const Profile = () => {
     .toUpperCase()}${user.lastName.slice(1)}`;
 
   return (
-    <Stack direction="column">
+    <Stack direction="column" w="100%">
       <Box
         borderColor="gray.300"
         boxShadow="0px 0px 10px rgba(0, 0, 0, 0.2)"

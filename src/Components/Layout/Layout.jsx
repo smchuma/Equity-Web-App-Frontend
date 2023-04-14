@@ -25,7 +25,11 @@ const Layout = () => {
           <SidebarComp />
         </Box>
         <Box
-          w="calc(100vw - 200px)"
+          w={{
+            base: "100%",
+            md: "calc(100% - 100px)",
+            lg: "calc(100% - 200px)",
+          }}
           marginLeft={{
             base: "0",
             md: "100px",

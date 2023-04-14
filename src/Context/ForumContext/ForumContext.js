@@ -1,9 +1,9 @@
 import { createContext, useReducer } from "react";
-import { useEffect } from "react";
 import { useQuery, useMutation } from "react-query";
 import useRefreshToken from "../../hooks/useRefresh";
+import { BASEURL } from "../../API_URL/api";
+import { useEffect } from "react";
 
-const baseUrl = "https://equity-backend.bravewave-974a5699.westus2.azurecontainerapps.io";
 const endpointPath = "posts";
 
 const ForumContext = createContext();
@@ -77,7 +77,7 @@ export const ForumContextProvider = ({ children }) => {
     "postData",
     async () => {
       const accessToken = await refreshAccessToken();
-      const postResponse = await fetch(`${baseUrl}/${endpointPath}`, {
+      const postResponse = await fetch(`${BASEURL}/${endpointPath}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -89,7 +89,7 @@ export const ForumContextProvider = ({ children }) => {
       const userIds = postData.map((post) => post.userId);
 
       const userResponse = await fetch(
-        `${baseUrl}/user?id=${userIds.join(
+        `${BASEURL}/user?id=${userIds.join(
           ","
         )}&fields=firstName,lastName,image`,
         {
@@ -122,7 +122,7 @@ export const ForumContextProvider = ({ children }) => {
   const postData = useMutation(
     async (data) => {
       const accessToken = await refreshAccessToken();
-      const response = await fetch(`${baseUrl}/${endpointPath}`, {
+      const response = await fetch(`${BASEURL}/${endpointPath}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -130,7 +130,6 @@ export const ForumContextProvider = ({ children }) => {
         },
         body: JSON.stringify(data),
       });
-      console.log(response);
       return response.json();
     },
     {
@@ -138,7 +137,7 @@ export const ForumContextProvider = ({ children }) => {
         console.log("Post created successfully");
         const accessToken = await refreshAccessToken();
         const userId = newPost.userId;
-        const userResponse = await fetch(`${baseUrl}/user/${userId}`, {
+        const userResponse = await fetch(`${BASEURL}/user/${userId}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -173,7 +172,7 @@ export const ForumContextProvider = ({ children }) => {
   const deletePost = useMutation(
     async (postId) => {
       const accessToken = await refreshAccessToken();
-      const response = await fetch(`${baseUrl}/${endpointPath}/${postId}`, {
+      const response = await fetch(`${BASEURL}/${endpointPath}/${postId}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -183,7 +182,6 @@ export const ForumContextProvider = ({ children }) => {
     },
     {
       onSuccess: async (deletedPost) => {
-        console.log("Post deleted successfully");
         await refetch();
       },
       onError: (err) => {
@@ -196,7 +194,7 @@ export const ForumContextProvider = ({ children }) => {
     async ({ postId, userId }) => {
       const accessToken = await refreshAccessToken();
       const response = await fetch(
-        `${baseUrl}/${endpointPath}/${postId}/like`,
+        `${BASEURL}/${endpointPath}/${postId}/like`,
         {
           method: "POST",
           headers: {
@@ -210,8 +208,6 @@ export const ForumContextProvider = ({ children }) => {
     },
     {
       onSuccess: async (likedPost) => {
-        console.log("Post liked successfully");
-        console.log(likedPost);
         await refetch();
       },
       onError: (err) => {
@@ -225,7 +221,7 @@ export const ForumContextProvider = ({ children }) => {
     async ({ postId, comment }) => {
       const accessToken = await refreshAccessToken();
       const response = await fetch(
-        `${baseUrl}/${endpointPath}/${postId}/comment`,
+        `${BASEURL}/${endpointPath}/${postId}/comment`,
         {
           method: "POST",
           headers: {
@@ -239,8 +235,6 @@ export const ForumContextProvider = ({ children }) => {
     },
     {
       onSuccess: async (addedComment) => {
-        console.log("Comment added successfully");
-        console.log(addedComment);
         await refetch();
       },
       onError: (err) => {

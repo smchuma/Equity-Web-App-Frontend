@@ -7,19 +7,16 @@ import {
   Box,
   VStack,
 } from "@chakra-ui/react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import GoogleIcon from "@mui/icons-material/Google";
 import { TextField } from "../../Components";
-
-import { useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import axios from "../../api/axios";
-import { Formik } from "formik";
-
-import * as Yup from "yup";
-import "./Login.scss";
 import useAuth from "../../hooks/useAuth";
-
-const LOGIN_URL = "/login";
+import { BASEURL } from "../../API_URL/api";
+import { useState } from "react";
+import { Formik } from "formik";
+import * as Yup from "yup";
+import axios from "axios";
+import "./Login.scss";
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
@@ -35,7 +32,7 @@ const Login = () => {
 
     try {
       const response = await axios.post(
-        LOGIN_URL,
+        `${BASEURL}/login`,
         JSON.stringify({ email, password }),
         {
           headers: { "Content-Type": "application/json" },

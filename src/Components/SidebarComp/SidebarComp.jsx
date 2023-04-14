@@ -40,7 +40,7 @@ const SidebarComp = ({ id }) => {
     {
       id: 5,
       icon: <GroupsIcon />,
-      text: "Groups",
+      text: "Chapters",
       link: "/groups",
     },
   ];

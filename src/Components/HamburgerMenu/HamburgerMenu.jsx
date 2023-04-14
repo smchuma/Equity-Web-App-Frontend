@@ -13,6 +13,7 @@ import ForumIcon from "@mui/icons-material/Forum";
 import EventIcon from "@mui/icons-material/Event";
 import GroupsIcon from "@mui/icons-material/Groups";
 import SearchModal from "../../Modals/SearchModal/SearchModal";
+import { Link } from "react-router-dom";
 
 const HamburgerMenu = ({
   onOpen,
@@ -52,7 +53,7 @@ const HamburgerMenu = ({
     {
       id: 5,
       icon: <GroupsIcon />,
-      text: "Groups",
+      text: "Chapters",
       link: "/groups",
     },
   ];
@@ -65,21 +66,23 @@ const HamburgerMenu = ({
             <Flex p="5%" direction="column" align="center" gap={12} mt={10}>
               {menuItem.map((item) => (
                 <Box d="flex" key={item.id} w="100%" align="center">
-                  <Flex
-                    align="center"
-                    p={3}
-                    _hover={{
-                      textDecor: "none",
-                      backgroundColor: "brand.tomato",
-                      color: "white",
-                      borderRadius: "10px",
-                    }}
-                  >
-                    <Box color="brand.secondary" mr={5}>
-                      {item.icon}
-                    </Box>
-                    <Text>{item.text}</Text>
-                  </Flex>
+                  <Link to={item.link}>
+                    <Flex
+                      align="center"
+                      p={3}
+                      _hover={{
+                        textDecor: "none",
+                        backgroundColor: "brand.tomato",
+                        color: "white",
+                        borderRadius: "10px",
+                      }}
+                    >
+                      <Box color="brand.secondary" mr={5}>
+                        {item.icon}
+                      </Box>
+                      <Text>{item.text}</Text>
+                    </Flex>
+                  </Link>
                 </Box>
               ))}
             </Flex>

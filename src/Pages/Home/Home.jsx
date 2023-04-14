@@ -1,4 +1,4 @@
-import { Box, Flex } from "@chakra-ui/react";
+import { Box, Flex, useMediaQuery } from "@chakra-ui/react";
 import { FeedInput, Post, RightBar, SkeletonLoader } from "../../Components";
 import useFeed from "../../hooks/useFeed";
 import useUser from "../../hooks/useUser";
@@ -8,6 +8,7 @@ import ChatBot from "../../Components/ChatBot/ChatBot";
 const Home = () => {
   const { feeds } = useFeed();
   const { user } = useUser();
+  const [isLargerThanLg] = useMediaQuery("(min-width: 992px)");
 
   if (!feeds) {
     return <SkeletonLoader width="100%" height="100px" />;
@@ -40,18 +41,19 @@ const Home = () => {
                 ))}
           </Box>
         </Box>
-        <Box
-          mt="50px"
-          paddingX={12}
-          flexBasis="400px"
-          flexGrow={0}
-          flexShrink={0}
-          display={{ base: "none", lg: "block" }}
-          align="center"
-          w="100%"
-        >
-          <RightBar />
-        </Box>
+        {isLargerThanLg && (
+          <Box
+            mt="50px"
+            paddingX={12}
+            flexBasis="400px"
+            flexGrow={0}
+            flexShrink={0}
+            align="center"
+            w="100%"
+          >
+            <RightBar />
+          </Box>
+        )}
       </Flex>
       <Box>
         <ChatBot />
