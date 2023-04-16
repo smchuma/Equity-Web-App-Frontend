@@ -1,5 +1,5 @@
 import { Box, Flex, useMediaQuery } from "@chakra-ui/react";
-import { FeedInput, Post, RightBar, SkeletonLoader } from "../../Components";
+import { FeedInput, Post, RightBar } from "../../Components";
 import useFeed from "../../hooks/useFeed";
 import useUser from "../../hooks/useUser";
 import "./Home.scss";
@@ -11,7 +11,7 @@ const Home = () => {
   const [isLargerThanLg] = useMediaQuery("(min-width: 992px)");
 
   if (!feeds) {
-    return <SkeletonLoader width="100%" height="100px" />;
+    return <p>Loading..</p>;
   }
 
   return (

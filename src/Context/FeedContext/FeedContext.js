@@ -73,6 +73,7 @@ export const FeedContextProvider = ({ children }) => {
 
   const {
     isLoading,
+    isError,
     data: feeds,
     refetch,
     error,
@@ -260,6 +261,11 @@ export const FeedContextProvider = ({ children }) => {
       dispatch({ type: "GET_FEEDS", payload: feeds });
     }
   }, [dispatch, feeds]);
+
+  if (isLoading) return <p>Loading...</p>;
+  if (isError) {
+    return <div>Error fetching feed data</div>;
+  }
 
   return (
     <FeedContext.Provider
