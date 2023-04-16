@@ -31,7 +31,7 @@ const SignUp = () => {
     const { firstName, lastName, email, password } = values;
 
     try {
-      const response = await axios.post(
+      await axios.post(
         `${BASEURL}/register`,
         JSON.stringify({ firstName, lastName, email, password }),
         {
@@ -39,10 +39,6 @@ const SignUp = () => {
           withCredentials: true,
         }
       );
-      console.log(response?.data);
-      const accessToken = response?.data?.accessToken;
-      const userId = response?.data?.userId;
-      login(accessToken, userId);
       navigate("/login");
       actions.resetForm();
       setLoading(false);
