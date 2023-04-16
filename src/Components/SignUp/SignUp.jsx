@@ -9,7 +9,7 @@ import {
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import GoogleIcon from "@mui/icons-material/Google";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import TextField from "../Formik/TextField";
 import useAuth from "../../hooks/useAuth";
 import { BASEURL } from "../../API_URL/api";
@@ -25,8 +25,6 @@ const SignUp = () => {
   const [loading, setLoading] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
-  const location = useLocation();
-  const from = location.state?.from?.pathname || "/";
 
   const handleSubmit = async (values, actions) => {
     setLoading(true);
@@ -45,7 +43,7 @@ const SignUp = () => {
       const accessToken = response?.data?.accessToken;
       const userId = response?.data?.userId;
       login(accessToken, userId);
-      navigate(from, { replace: true });
+      navigate("/login");
       actions.resetForm();
       setLoading(false);
     } catch (err) {

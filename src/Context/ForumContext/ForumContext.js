@@ -1,6 +1,7 @@
 import { createContext, useReducer } from "react";
 import { useQuery, useMutation } from "react-query";
 import useRefreshToken from "../../hooks/useRefresh";
+
 import { BASEURL } from "../../API_URL/api";
 import { useEffect } from "react";
 
@@ -69,14 +70,17 @@ export const ForumContextProvider = ({ children }) => {
   });
   const refreshAccessToken = useRefreshToken();
 
+  //fetching posts
+
   const {
     isLoading,
     data: posts,
     refetch,
   } = useQuery(
-    "postData",
+    "pos",
     async () => {
       const accessToken = await refreshAccessToken();
+      console.log("acc", accessToken);
       const postResponse = await fetch(`${BASEURL}/${endpointPath}`, {
         method: "GET",
         headers: {
@@ -119,6 +123,8 @@ export const ForumContextProvider = ({ children }) => {
     }
   );
 
+  //posting data
+
   const postData = useMutation(
     async (data) => {
       const accessToken = await refreshAccessToken();
@@ -128,13 +134,14 @@ export const ForumContextProvider = ({ children }) => {
           "Content-Type": "application/json",
           Authorization: `Bearer ${accessToken}`,
         },
+
         body: JSON.stringify(data),
       });
+      console.log("data", data);
       return response.json();
     },
     {
       onSuccess: async (newPost) => {
-        console.log("Post created successfully");
         const accessToken = await refreshAccessToken();
         const userId = newPost.userId;
         const userResponse = await fetch(`${BASEURL}/user/${userId}`, {
