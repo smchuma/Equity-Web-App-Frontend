@@ -262,11 +262,6 @@ export const FeedContextProvider = ({ children }) => {
     }
   }, [dispatch, feeds]);
 
-  if (isLoading) return <p>Loading...</p>;
-  if (isError) {
-    return <div>Error fetching feed data</div>;
-  }
-
   return (
     <FeedContext.Provider
       value={{
