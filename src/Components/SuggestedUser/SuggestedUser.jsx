@@ -5,6 +5,8 @@ import useUser from "../../hooks/useUser";
 const SuggestedUser = ({ isOnline }) => {
   const { user, allUsers } = useUser();
 
+  if (!user || !allUsers) return <p>Loading...</p>;
+
   const filteredUsers = allUsers.filter((allUser) => allUser._id !== user._id);
 
   return (
