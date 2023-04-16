@@ -73,7 +73,6 @@ export const FeedContextProvider = ({ children }) => {
 
   const {
     isLoading,
-    isError,
     data: feeds,
     refetch,
     error,
