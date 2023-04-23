@@ -35,6 +35,8 @@ const Navbar = () => {
   const [showNotification, setShowNotification] = useState(false);
   const { user } = useUser();
   const { logout } = useAuth();
+  const userId = user._id;
+  const profileLink = `/profile/${userId}/about`;
 
   const signOut = () => {
     logout();
@@ -179,7 +181,8 @@ const Navbar = () => {
                   </Center>
                   <br />
                   <MenuDivider />
-                  <Link to="/profile/about">
+                  {/* aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa */}
+                  <Link to={profileLink}>
                     <MenuItem>
                       <PersonIcon
                         style={{

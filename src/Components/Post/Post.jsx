@@ -21,6 +21,7 @@ import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import useUser from "../../hooks/useUser";
 import useFeed from "../../hooks/useFeed";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Post = (feed) => {
   const { user } = useUser();
@@ -99,23 +100,27 @@ const Post = (feed) => {
           justify="space-between"
           p={3}
         >
-          <Flex align="center">
-            <Box mr={4}>
-              <Avatar
-                name={feed.feed.user.firstName + " " + feed.feed.user.lastName}
-                src={feed?.feed?.user?.profilePicture}
-                alt="user profile"
-              />
-            </Box>
-            <Box>
-              <Text fontWeight="bold">
-                {firstName} {lastName}
-              </Text>
-              <Text fontSize="sm" color="gray.500">
-                {timePost}
-              </Text>
-            </Box>
-          </Flex>
+          <Link to={`/profile/${feed.feed.userId}`}>
+            <Flex align="center">
+              <Box mr={4}>
+                <Avatar
+                  name={
+                    feed.feed.user.firstName + " " + feed.feed.user.lastName
+                  }
+                  src={feed?.feed?.user?.profilePicture}
+                  alt="user profile"
+                />
+              </Box>
+              <Box>
+                <Text fontWeight="bold">
+                  {firstName} {lastName}
+                </Text>
+                <Text fontSize="sm" color="gray.500">
+                  {timePost}
+                </Text>
+              </Box>
+            </Flex>
+          </Link>
           {feed.feed.userId === user._id && (
             <Menu>
               <MenuButton as={Button} variant="ghost" size="sm">

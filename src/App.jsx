@@ -19,7 +19,7 @@ const App = () => {
         <Route element={<RequireAuth />}>
           <Route path="/" element={<Layout />}>
             <Route path="/" element={<Home />} />
-            <Route path="/profile" element={<ProfilePage />}>
+            <Route path="/profile/:id" element={<ProfilePage />}>
               <Route path="about" element={<About />} />
               <Route path="inquiries" element={<Inquiries />} />
               <Route path="chapters" element={<Chapters />} />

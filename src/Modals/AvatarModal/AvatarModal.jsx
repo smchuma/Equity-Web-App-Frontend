@@ -18,7 +18,7 @@ import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import PropTypes from "prop-types";
 import useUser from "../../hooks/useUser";
 
-const AvatarModal = () => {
+const AvatarModal = ({ dyUser }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedFile, setSelectedFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
@@ -68,69 +68,73 @@ const AvatarModal = () => {
   return (
     <Box cursor="pointer" w="100%" position="relative">
       <Avatar
-        name={`${user.firstName} ${user.lastName}`}
-        src={user?.profilePicture}
+        name={`${dyUser?.firstName} ${dyUser?.lastName}`}
+        src={dyUser?.profilePicture}
         alt="Avatar"
         size="2xl"
         onClick={onOpen}
       >
-        <IconButton
-          aria-label="Edit Profile Photo"
-          icon={<CameraAltIcon />}
-          onClick={onOpen}
-          position="absolute"
-          bottom="0"
-          right="0"
-          size="sm"
-          color="brand.secondary"
-          borderRadius="50%"
-          backgroundColor={bgColor}
-        />
+        {user?._id === dyUser?._id && (
+          <IconButton
+            aria-label="Edit Profile Photo"
+            icon={<CameraAltIcon />}
+            onClick={onOpen}
+            position="absolute"
+            bottom="0"
+            right="0"
+            size="sm"
+            color="brand.secondary"
+            borderRadius="50%"
+            backgroundColor={bgColor}
+          />
+        )}
       </Avatar>
-      <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Profile Photo</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            <Flex align="center" justify="center" mb="20px">
-              {previewUrl ? (
-                <Avatar
-                  name={`${user.firstName} ${user.lastName}`}
-                  src={previewUrl}
-                  alt="Avatar"
-                  size="2xl"
-                  onClick={onOpen}
-                  mb={5}
+      {user?._id === dyUser?._id && (
+        <Modal isOpen={isOpen} onClose={onClose}>
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader>Profile Photo</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+              <Flex align="center" justify="center" mb="20px">
+                {previewUrl ? (
+                  <Avatar
+                    name={`${dyUser?.firstName} ${dyUser?.lastName}`}
+                    src={previewUrl}
+                    alt="Avatar"
+                    size="2xl"
+                    onClick={onOpen}
+                    mb={5}
+                  />
+                ) : (
+                  <Avatar
+                    name={`${dyUser?.firstName} ${dyUser?.lastName}`}
+                    src={dyUser?.profilePicture}
+                    alt="Avatar"
+                    size="2xl"
+                    onClick={onOpen}
+                  />
+                )}
+              </Flex>
+              <Flex mb={5} justify="center" align="center" gap={5}>
+                <Button as="label" htmlFor="banner-upload" variant="outline">
+                  {selectedFile ? "Change Image" : "Upload Image"}
+                </Button>
+                <input
+                  id="banner-upload"
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageChange}
+                  style={{ display: "none" }}
                 />
-              ) : (
-                <Avatar
-                  name={`${user.firstName} ${user.lastName}`}
-                  src={user?.profilePicture}
-                  alt="Avatar"
-                  size="2xl"
-                  onClick={onOpen}
-                />
-              )}
-            </Flex>
-            <Flex mb={5} justify="center" align="center" gap={5}>
-              <Button as="label" htmlFor="banner-upload" variant="outline">
-                {selectedFile ? "Change Image" : "Upload Image"}
-              </Button>
-              <input
-                id="banner-upload"
-                type="file"
-                accept="image/*"
-                onChange={handleImageChange}
-                style={{ display: "none" }}
-              />
-              {selectedFile && (
-                <Button onClick={handleImageUpdate}>Save Changes</Button>
-              )}
-            </Flex>
-          </ModalBody>
-        </ModalContent>
-      </Modal>
+                {selectedFile && (
+                  <Button onClick={handleImageUpdate}>Save Changes</Button>
+                )}
+              </Flex>
+            </ModalBody>
+          </ModalContent>
+        </Modal>
+      )}
     </Box>
   );
 };
@@ -140,6 +144,12 @@ AvatarModal.propTypes = {
   firstName: PropTypes.string,
   lastName: PropTypes.string,
   onUpdateImage: PropTypes.func,
+  dyUser:
+    PropTypes.shape({
+      firstName: PropTypes.string,
+      lastName: PropTypes.string,
+      profilePicture: PropTypes.string,
+    }) || null,
 };
 
 export default AvatarModal;

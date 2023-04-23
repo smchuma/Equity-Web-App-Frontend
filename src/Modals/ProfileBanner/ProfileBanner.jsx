@@ -19,12 +19,11 @@ import useUser from "../../hooks/useUser";
 
 const img = "https://via.placeholder.com/1500x300.png";
 
-const ProfileBanner = () => {
+const ProfileBanner = ({ dyUser }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedFile, setSelectedFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
   const { user, updateUser } = useUser();
-
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -44,6 +43,7 @@ const ProfileBanner = () => {
       cloud.append("file", selectedFile);
       cloud.append("upload_preset", "scholar");
       cloud.append("cloud_name", "egfscholar");
+      onClose();
       const response = await fetch(
         "https://api.cloudinary.com/v1_1/egfscholar/image/upload",
         {
@@ -60,28 +60,35 @@ const ProfileBanner = () => {
     } catch (error) {
       console.log(error);
     }
-    onClose();
   };
 
   return (
     <Box w="100%" position="relative">
       <Image
-        src={user.coverPicture || img}
+        src={dyUser?.coverPicture || img}
         alt="Profile banner"
         w="100%"
-        minH="2xs"
-        h="3xs"
+        maxH={{
+          base: "200px",
+          md: "300px",
+        }}
         objectFit="cover"
+        boxSize={{
+          base: "100%",
+          md: "1500px",
+        }}
       />
       <Flex justify="flex-end" position="absolute" top="10px" right="10px">
-        <IconButton
-          icon={<CameraAltIcon />}
-          aria-label="Edit banner"
-          color="brand.tomato"
-          variant="unstyled"
-          onClick={onOpen}
-          borderRadius="50%"
-        />
+        {user?._id === dyUser?._id && (
+          <IconButton
+            icon={<CameraAltIcon />}
+            aria-label="Edit banner"
+            color="brand.tomato"
+            variant="unstyled"
+            onClick={onOpen}
+            borderRadius="50%"
+          />
+        )}
       </Flex>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
@@ -98,7 +105,7 @@ const ProfileBanner = () => {
                 />
               ) : (
                 <Image
-                  src={user.coverPicture || img}
+                  src={dyUser?.coverPicture || img}
                   alt="Current profile banner"
                   w="100%"
                 />
@@ -131,6 +138,10 @@ const ProfileBanner = () => {
 ProfileBanner.propTypes = {
   imageUrl: PropTypes.string,
   onUpdateImage: PropTypes.func,
+  dyUser:
+    PropTypes.shape({
+      coverPicture: PropTypes.string,
+    }) || null,
 };
 
 export default ProfileBanner;

@@ -11,31 +11,34 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import TwitterIcon from "@mui/icons-material/Twitter";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useParams } from "react-router-dom";
 import useUser from "../../../hooks/useUser";
 import { AvatarModal, EditProfileModal, ProfileBanner } from "../../../Modals";
 
 const Profile = () => {
   const links = [
-    { label: "About", path: "/profile/about" },
-    { label: "Inquiries", path: "/profile/inquiries" },
-    { label: "Chapters", path: "/profile/chapters" },
-    { label: "Badges", path: "/profile/badges" },
-    { label: "Events", path: "/profile/events" },
+    { label: "About", path: "/profile/:id/about" },
+    { label: "Inquiries", path: "/profile/:id/inquiries" },
+    { label: "Chapters", path: "/profile/:id/chapters" },
+    { label: "Badges", path: "/profile/:id/badges" },
+    { label: "Events", path: "/profile/:id/events" },
   ];
-  const { user } = useUser();
+  const { id } = useParams();
+  const { user, allUsers } = useUser();
+  const dyUser = allUsers?.find((user) => user?._id === id);
+
   const borderTopColor = useColorModeValue("#EAEAEA", "#2d2d2d");
-  const firstName = `${user.firstName
+  const firstName = `${dyUser?.firstName
     .charAt(0)
-    .toUpperCase()}${user.firstName.slice(1)}`;
-  const lastName = `${user.lastName
+    .toUpperCase()}${dyUser?.firstName.slice(1)}`;
+  const lastName = `${dyUser?.lastName
     .charAt(0)
-    .toUpperCase()}${user.lastName.slice(1)}`;
+    .toUpperCase()}${dyUser?.lastName.slice(1)}`;
 
   return (
     <Stack direction="column">
       <Box w="100%" mb={4}>
-        <ProfileBanner />
+        <ProfileBanner dyUser={dyUser} />
         <Flex
           justify="space-between"
           align="center"
@@ -58,7 +61,7 @@ const Profile = () => {
               }}
               mt="-30px"
             >
-              <AvatarModal />
+              <AvatarModal dyUser={dyUser} />
             </Box>
             <Box
               ml={{
@@ -88,7 +91,7 @@ const Profile = () => {
                   aria-label="Facebook"
                   icon={<FacebookIcon />}
                   onClick={() => {
-                    const facebookLink = user?.followers[0]?.facebook;
+                    const facebookLink = dyUser?.followers[0]?.facebook;
                     facebookLink ? window.open(facebookLink, "_blank") : "";
                   }}
                   size="sm"
@@ -100,7 +103,7 @@ const Profile = () => {
                   icon={
                     <InstagramIcon
                       onClick={() => {
-                        const instagramLink = user?.followers[0]?.instagram;
+                        const instagramLink = dyUser?.followers[0]?.instagram;
                         instagramLink
                           ? window.open(instagramLink, "_blank")
                           : "";
@@ -115,7 +118,7 @@ const Profile = () => {
                   aria-label="LinkedIn"
                   icon={<LinkedInIcon />}
                   onClick={() => {
-                    const linkedinLink = user?.followers[0]?.linkedIn;
+                    const linkedinLink = dyUser?.followers[0]?.linkedIn;
                     linkedinLink ? window.open(linkedinLink, "_blank") : "";
                   }}
                   size="sm"
@@ -126,7 +129,7 @@ const Profile = () => {
                   aria-label="Twitter"
                   icon={<TwitterIcon />}
                   onClick={() => {
-                    const twitterLink = user?.followers[0]?.twitter;
+                    const twitterLink = dyUser?.followers[0]?.twitter;
                     twitterLink ? window.open(twitterLink, "_blank") : "";
                   }}
                   size="sm"
@@ -136,9 +139,7 @@ const Profile = () => {
               </Flex>
             </Box>
           </Flex>
-          <Box>
-            <EditProfileModal />
-          </Box>
+          <Box>{user?._id === dyUser?._id && <EditProfileModal />}</Box>
         </Flex>
       </Box>
       <Stack

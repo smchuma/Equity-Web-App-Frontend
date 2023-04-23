@@ -64,7 +64,6 @@ const EditProfileModal = () => {
     try {
       onClose();
       updateUser.mutateAsync(formData);
-      console.log("success");
     } catch (error) {
       console.log(error);
     }

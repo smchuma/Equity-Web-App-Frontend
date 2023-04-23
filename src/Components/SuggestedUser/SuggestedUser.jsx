@@ -43,7 +43,7 @@ const SuggestedUser = ({ isOnline }) => {
                 <Avatar
                   size="md"
                   name={user.firstName + " " + user.lastName}
-                  src=""
+                  src={user?.profilePicture}
                 >
                   {isOnline && <AvatarBadge boxSize="1em" bg="green.500" />}
                 </Avatar>

@@ -17,8 +17,8 @@ const About = () => {
           About
         </Text>
         <Box p={2}>
-          <Flex mb={5} align="center">
-            <Text ml={2}>{user?.desc}</Text>
+          <Flex mb={5} color={user?.desc ? "white" : "gray"} align="center">
+            <Text ml={2}>{user?.desc || "your about information"}</Text>
           </Flex>
           <Flex align="center" mb={2}>
             <CakeIcon style={{ fontSize: "30px" }} />

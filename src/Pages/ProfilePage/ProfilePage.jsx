@@ -22,7 +22,7 @@ const ProfilePage = () => {
         flexBasis="400px"
         flexGrow={0}
         flexShrink={0}
-        display={{ base: "none", lg: "block" }}
+        display={{ base: "none", xl: "block" }}
       >
         <RightBar />
       </Box>
