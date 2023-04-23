@@ -5,9 +5,12 @@ import SchoolIcon from "@mui/icons-material/School";
 import CakeIcon from "@mui/icons-material/Cake";
 import BadgeIcon from "@mui/icons-material/Badge";
 import useUser from "../../hooks/useUser";
+import { useParams } from "react-router-dom";
 
 const About = () => {
-  const { user } = useUser();
+  const { allUsers } = useUser();
+  const { id } = useParams();
+  const dyUser = allUsers?.find((user) => user?._id === id);
   const bgColor = useColorModeValue("#f5f5f5", "#171c28");
 
   return (
@@ -17,19 +20,19 @@ const About = () => {
           About
         </Text>
         <Box p={2}>
-          <Flex mb={5} color={user?.desc ? "white" : "gray"} align="center">
-            <Text ml={2}>{user?.desc || "your about information"}</Text>
+          <Flex mb={5} color={dyUser?.desc ? "white" : "gray"} align="center">
+            <Text ml={2}>{dyUser?.desc || "About information"}</Text>
           </Flex>
           <Flex align="center" mb={2}>
             <CakeIcon style={{ fontSize: "30px" }} />
-            <Text color={user?.birthday ? "white" : "gray"} ml={2}>
-              {user?.birthday || "Your birthday"}
+            <Text color={dyUser?.birthday ? "white" : "gray"} ml={2}>
+              {dyUser?.birthday || "Birthday Date"}
             </Text>
           </Flex>
           <Flex mt={5} align="center" mb={2}>
             <BadgeIcon style={{ fontSize: "30px" }} />
-            <Text color={user?.birthday ? "white" : "gray"} ml={2}>
-              {user?.birthday || "Your current position"}
+            <Text color={dyUser?.birthday ? "white" : "gray"} ml={2}>
+              {dyUser?.birthday || "Current position"}
             </Text>
           </Flex>
         </Box>
@@ -41,12 +44,12 @@ const About = () => {
         <Box p={2}>
           <Flex mb={5} align="center">
             <EmailIcon style={{ fontSize: "30px" }} />
-            <Text ml={2}>{user?.email}</Text>
+            <Text ml={2}>{dyUser?.email}</Text>
           </Flex>
           <Flex align="center" mb={2}>
             <LocalPhoneIcon style={{ fontSize: "30px" }} />
-            <Text color={user?.phone ? "white" : "gray"} ml={2}>
-              {user?.phone || "Your phone number"}
+            <Text color={dyUser?.phone ? "white" : "gray"} ml={2}>
+              {dyUser?.phone || "Phone number"}
             </Text>
           </Flex>
         </Box>
@@ -58,8 +61,8 @@ const About = () => {
         <Box p={2}>
           <Flex align="center" mb={2}>
             <SchoolIcon style={{ fontSize: "30px" }} />
-            <Text color={user?.education ? "white" : "gray"} ml={2}>
-              {user?.education || "Your school name"}
+            <Text color={dyUser?.education ? "white" : "gray"} ml={2}>
+              {dyUser?.education || "School name"}
             </Text>
           </Flex>
         </Box>
@@ -72,8 +75,8 @@ const About = () => {
           <Text>Address</Text>
           <Flex align="center" mb={2}>
             <SchoolIcon style={{ fontSize: "30px" }} />
-            <Text color={user?.city ? "white" : "gray"} ml={2}>
-              {user?.city || "Your city name"}
+            <Text color={dyUser?.city ? "white" : "gray"} ml={2}>
+              {dyUser?.city || "City name"}
             </Text>
           </Flex>
         </Box>

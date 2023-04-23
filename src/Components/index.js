@@ -15,3 +15,4 @@ export { default as ForumInput } from "././ForumPost/ForumInput";
 export { default as ForumPost } from "././ForumPost/ForumPost";
 export { default as SkeletonLoader } from "./SkeletonLoader/SkeletonLoader";
 export { default as FeedInput } from "./FeedInput/FeedInput";
+export { default as EventPage } from "./EventPage/EventPage";

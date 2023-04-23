@@ -11,23 +11,25 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import TwitterIcon from "@mui/icons-material/Twitter";
-import { Link, Outlet, useParams } from "react-router-dom";
+import { NavLink, Outlet, useParams } from "react-router-dom";
 import useUser from "../../../hooks/useUser";
 import { AvatarModal, EditProfileModal, ProfileBanner } from "../../../Modals";
-
+import "./Profile.scss";
 const Profile = () => {
-  const links = [
-    { label: "About", path: "/profile/:id/about" },
-    { label: "Inquiries", path: "/profile/:id/inquiries" },
-    { label: "Chapters", path: "/profile/:id/chapters" },
-    { label: "Badges", path: "/profile/:id/badges" },
-    { label: "Events", path: "/profile/:id/events" },
-  ];
   const { id } = useParams();
   const { user, allUsers } = useUser();
   const dyUser = allUsers?.find((user) => user?._id === id);
 
-  const borderTopColor = useColorModeValue("#EAEAEA", "#2d2d2d");
+  const links = [
+    { label: "About", path: `/profile/${dyUser?._id}/about` },
+    { label: "Inquiries", path: `/profile/${dyUser?._id}/inquiries` },
+    { label: "Chapters", path: `/profile/${dyUser?._id}/chapters` },
+    { label: "Badges", path: `/profile/${dyUser?._id}/badges` },
+    { label: "Events", path: `/profile/${dyUser?._id}/events` },
+  ];
+
+  const borderTopColor = useColorModeValue("#e1e1e1", "#2d2d2d");
+  const color = useColorModeValue("gray.500", "white");
   const firstName = `${dyUser?.firstName
     .charAt(0)
     .toUpperCase()}${dyUser?.firstName.slice(1)}`;
@@ -147,28 +149,37 @@ const Profile = () => {
         spacing={4}
         justify="center"
         p="4"
-        color="#a32a29"
         borderColor="gray.100"
         borderTop={`2px solid ${borderTopColor}`}
       >
         {links.map((link) => (
-          <Button
+          <NavLink
+            to={link.path}
             key={link.label}
-            variant="link"
-            flex="1"
-            textAlign="center"
-            backgroundColor="transparent"
-            border="none"
-            outline="none"
-            height="50px"
-            _hover={{
-              color: "white",
-              backgroundColor: "brand.tomato",
-              borderRadius: "10px",
+            style={{
+              width: "100%",
+              textAlign: "center",
+            }}
+            className={({ isActive }) => {
+              return isActive ? "active" : "";
             }}
           >
-            <Link to={link.path}>{link.label}</Link>
-          </Button>
+            <Button
+              variant="link"
+              backgroundColor="transparent"
+              border="none"
+              outline="none"
+              height="50px"
+              color={color}
+              w="100%"
+              _hover={{
+                backgroundColor: "#a9a9a9",
+                borderRadius: "10px",
+              }}
+            >
+              {link.label}
+            </Button>
+          </NavLink>
         ))}
       </Stack>
       <Outlet />

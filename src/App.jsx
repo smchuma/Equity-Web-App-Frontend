@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import { Events, Groups, Home, Forum, ProfilePage } from "./Pages";
 import { UserEvents, About, Badges, Chapters, Inquiries } from "./Sections";
-import { Login, SignUp, RequireAuth, Page404 } from "./Components";
+import { Login, SignUp, RequireAuth, Page404, EventPage } from "./Components";
 import "./App.scss";
 
 import { Layout } from "./Components";
@@ -27,6 +27,7 @@ const App = () => {
               <Route path="events" element={<UserEvents />} />
             </Route>
             <Route path="/events" element={<Events />} />
+            <Route path="/events/:id" element={<EventPage />} />
             <Route path="/forum" element={<Forum />} />
             <Route path="/groups" element={<Groups />} />
           </Route>
