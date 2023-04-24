@@ -1,0 +1,21 @@
+.datePicker {
+  .react-datepicker__input-container input {
+    background-color: transparent !important;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    width: 100%;
+  }
+}
+.timePicker {
+  .react-datepicker__input-container input {
+    background-color: transparent !important;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    width: 200px;
+    margin-left: 12px;
+  }
+}

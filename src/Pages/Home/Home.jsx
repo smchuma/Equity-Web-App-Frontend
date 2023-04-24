@@ -41,7 +41,7 @@ const Home = () => {
                 lg: "150px",
               }}
             >
-              {user && user.roles && user.roles[0].User === 1984 && (
+              {user && user?.roles && user?.roles[0].User === 1984 && (
                 <Box mb="20px">
                   <FeedInput />
                 </Box>

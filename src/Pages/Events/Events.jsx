@@ -10,8 +10,10 @@ import {
 } from "@chakra-ui/react";
 import IosShareIcon from "@mui/icons-material/IosShare";
 import { Link } from "react-router-dom";
+// import useEvents from "../../hooks/useEvents";
+import { EventModal } from "../../Modals";
 
-const events = [
+const eventsData = [
   {
     id: 1,
     name: "Innovate with Equity Bank: A Tech and Finance Conference",
@@ -84,6 +86,9 @@ const Events = () => {
     "rgba(255, 255, 255, 0.4)"
   );
 
+  // const { events } = useEvents();
+  // console.log("events", events);
+
   return (
     <Stack align="center" color={color} px={10} py={8}>
       <Box w="100%" borderRadius="md" overflow="hidden" mb={8}>
@@ -96,14 +101,21 @@ const Events = () => {
             backgroundPosition: "center",
           }}
         ></Box>
-        <Box p={4}>
-          <Heading mt={5} as="h1" size="lg" textAlign="center" mb={4}>
-            Upcoming Events
-          </Heading>
-          <Text fontSize="lg" textAlign="center" mb={4}>
-            Dont Miss out on these upcoming events
-          </Text>
-        </Box>
+        <Stack>
+          <Flex justify="flex-end">
+            <Box mt={5}>
+              <EventModal />
+            </Box>
+          </Flex>
+          <Box p={4}>
+            <Heading mt={5} as="h1" size="lg" textAlign="center" mb={4}>
+              Upcoming Events
+            </Heading>
+            <Text fontSize="lg" textAlign="center" mb={4}>
+              Dont Miss out on these upcoming events
+            </Text>
+          </Box>
+        </Stack>
       </Box>
 
       <Grid
@@ -111,7 +123,7 @@ const Events = () => {
         gap={{ base: 4, md: 10 }}
         mx={{ base: -2, md: 0 }}
       >
-        {events.map((event) => (
+        {eventsData.map((event) => (
           <Link to={`/events/${event.id}`} key={event.id}>
             <Box
               mb={{ base: 4, md: 0 }}

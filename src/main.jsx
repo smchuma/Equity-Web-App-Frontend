@@ -10,6 +10,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 
 import { colors } from "./config/theme";
 import App from "./App";
+import { EventsContextProvider } from "./Context/EventsContext/EventsContext";
 
 const queryClient = new QueryClient();
 
@@ -61,7 +62,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             <UserContextProvider>
               <FeedContextProvider>
                 <ForumContextProvider>
-                  <App />
+                  <EventsContextProvider>
+                    <App />
+                  </EventsContextProvider>
                 </ForumContextProvider>
               </FeedContextProvider>
             </UserContextProvider>
