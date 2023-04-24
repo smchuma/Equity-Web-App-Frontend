@@ -3,8 +3,6 @@ import {
   Box,
   Button,
   Flex,
-  IconButton,
-  Input,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -20,8 +18,6 @@ import {
 } from "@chakra-ui/react";
 
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
-import EventAvailableIcon from "@mui/icons-material/EventAvailable";
-import OndemandVideoIcon from "@mui/icons-material/OndemandVideo";
 import useUser from "../../hooks/useUser";
 import { useState } from "react";
 import useFeed from "../../hooks/useFeed";
@@ -112,83 +108,25 @@ const PostModal = ({ children }) => {
                     focusBorderColor="transparent"
                     _placeholder={{ color: placeholderColor }}
                   />
-                  <Flex
-                    w="100%"
-                    justifyContent="space-between"
-                    alignItems="center"
-                  >
-                    <label htmlFor="photo-input">
-                      <Flex
-                        p={3}
-                        borderRadius={20}
-                        alignItems="center"
-                        justifyContent="center"
-                        borderWidth={2}
-                        _hover={{ bg: "brand.tomato" }}
-                        w="150px"
-                      >
-                        <IconButton
-                          aria-label="Add a photo"
-                          icon={<AddAPhotoIcon />}
-                          variant="unstyled"
-                        />
-                        <Button variant="unstyled" align="center">
-                          Photo
-                        </Button>
-                        <Input
-                          id="photo-input"
-                          type="file"
-                          accept=".png, .jpg, .jpeg"
-                          onChange={handleFileSelect}
-                          style={{ display: "none" }}
-                        />
-                      </Flex>
-                    </label>
 
-                    <label htmlFor="video-input" style={{ cursor: "pointer" }}>
-                      <Flex
-                        p={3}
-                        borderRadius={20}
-                        alignItems="center"
-                        justifyContent="center"
-                        borderWidth={2}
-                        _hover={{ bg: "brand.tomato" }}
-                        w="150px"
-                      >
-                        <IconButton
-                          aria-label="Add a video"
-                          icon={<OndemandVideoIcon />}
-                          variant="unstyled"
-                        />
-                        <Button variant="unstyled" align="center">
-                          Video
-                        </Button>
-                        <Input
-                          id="video-input"
-                          type="file"
-                          accept=".mp4, .mov, .avi"
-                          style={{ display: "none" }}
-                        />
-                      </Flex>
-                    </label>
-                    <Flex
-                      p={3}
-                      borderRadius={20}
-                      alignItems="center"
-                      justifyContent="center"
-                      borderWidth={2}
-                      _hover={{ bg: "brand.tomato" }}
-                      w="150px"
+                  <Flex mb={5} w="100%" gap={5}>
+                    <Button
+                      as="label"
+                      w="100%"
+                      leftIcon={<AddAPhotoIcon />}
+                      htmlFor="banner-upload"
+                      variant="outlined"
+                      textAlign="center"
                     >
-                      <IconButton
-                        aria-label="Add an event"
-                        icon={<EventAvailableIcon />}
-                        variant="unstyled"
-                      />
-                      <Button variant="unstyled" align="center">
-                        Event
-                      </Button>
-                    </Flex>
+                      {selectedFile ? "Change Image" : "Upload Image"}
+                    </Button>
+                    <input
+                      id="banner-upload"
+                      type="file"
+                      accept="image/*"
+                      onChange={handleFileSelect}
+                      style={{ display: "none" }}
+                    />
                   </Flex>
                   {selectedFile && (
                     <Flex

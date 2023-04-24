@@ -1,16 +1,13 @@
 import {
   Avatar,
   Box,
+  Button,
   Flex,
-  IconButton,
   Input,
   Text,
   VStack,
   useColorModeValue,
 } from "@chakra-ui/react";
-import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
-import OndemandVideoIcon from "@mui/icons-material/OndemandVideo";
-import EventAvailableIcon from "@mui/icons-material/EventAvailable";
 import useUser from "../../hooks/useUser";
 import PostModal from "../../Modals/PostModal/PostModal";
 
@@ -65,39 +62,12 @@ const FeedInput = () => {
               w="100%"
               px="10px"
             >
-              <Flex alignItems="center">
-                <IconButton
-                  aria-label="Photo"
-                  icon={<AddAPhotoIcon />}
-                  size="sm"
-                  variant="unstyled"
-                />
-                <Text ml="5px" cursor="pointer">
-                  Photo
-                </Text>
-              </Flex>
-
-              <Flex alignItems="center">
-                <IconButton
-                  aria-label="Video"
-                  icon={<OndemandVideoIcon />}
-                  size="sm"
-                  variant="unstyled"
-                />
-                <Text ml="5px" cursor="pointer">
-                  Video
-                </Text>
-              </Flex>
-              <Flex alignItems="center">
-                <IconButton
-                  aria-label="Event"
-                  icon={<EventAvailableIcon />}
-                  size="sm"
-                  variant="unstyled"
-                />
-                <Text ml="5px" cursor="pointer">
-                  Event
-                </Text>
+              <Flex w="100%" alignItems="center">
+                <Button variant="unstyled" bg="brand.tomato" w="100%">
+                  <Text color="white" fontWeight="bold">
+                    Post
+                  </Text>
+                </Button>
               </Flex>
             </Flex>
           </PostModal>
