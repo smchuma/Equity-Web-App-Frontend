@@ -76,8 +76,8 @@ const EventModal = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // submit form data here
-    console.log("formData", formData);
+    // submit form data will be added here
+
     onClose();
   };
 
