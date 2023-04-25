@@ -136,15 +136,17 @@ const Post = (feed) => {
           <Text px={4} fontSize="sm" textAlign="justify">
             {feed.feed.desc}
           </Text>
-          <Box mt={4}>
-            <Image
-              src={feed.feed.img}
-              borderRadius="md"
-              alt=""
-              boxSize="100%"
-              objectFit="cover"
-            />
-          </Box>
+          {feed.feed.img && (
+            <Box mt={4}>
+              <Image
+                src={feed.feed.img}
+                borderRadius="md"
+                alt=""
+                boxSize="100%"
+                objectFit="cover"
+              />
+            </Box>
+          )}
         </Box>
         <Flex mt={4} alignItems="center" justify="space-between">
           <Box
